@@ -18,16 +18,20 @@
       }
     },
     computed: {
-      ...mapState(['loadingShow', 'errorDialogShow', 'errorDialogTxt', 'errorDialogIcon'])
+      ...mapState([
+        'loadingShow',
+        'errorDialogShow',
+        'errorDialogTxt',
+        'errorDialogIcon'
+      ])
     },
     watch: {
-      /*loading*/
       loadingShow(nv) {
         if (nv) {
           /*单例模式，参考cube-ui toast配置*/
           this.loading = this.$createToast({
-            mask: true,
-            time: 0
+            mask: true,//蒙层
+            time: 0//设置为0时需要手动关闭
           }).show();
         } else {
           if (!this.loading) return;
@@ -37,14 +41,12 @@
       /*错误弹窗*/
       errorDialogShow(nv) {
         if (nv) {
-          /*单例模式，参考cube-ui dialog配置*/
           this.diaLog = this.$createDialog({
             mask: true,
             icon: this.errorDialogIcon,
             content: this.errorDialogTxt,
             onConfirm: () => {
-              /*vuex隐藏dialog*/
-              this.$store.commit('SET_ERR_DIALOG', {show: false});
+              this.$store.commit('SET_ERR_DIALOG', {show: false});//隐藏dialog
             }
           }).show();
         }
@@ -52,7 +54,6 @@
       /*路由前进后退*/
       $route(to, from) {
         if (to.meta.index > from.meta.index) {
-          //设置动画名称
           this.transitionName = 'slide-left';
         } else {
           this.transitionName = 'slide-right';

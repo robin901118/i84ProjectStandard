@@ -1,18 +1,48 @@
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 基础引入
+ * +++++++++++++++++++++++++++++++++++
+ * */
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/'
+
+
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 封装、组件、全局组件引入
+ * +++++++++++++++++++++++++++++++++++
+ * */
 import './cube-ui'
-import {getStore, removeStore, decrypt, encrypt} from './assets/js/common'
+import {getStore, decrypt, encrypt} from './assets/js/common'
 import {loginOut, isLoginApi} from './assets/js/api';
+
+
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * vconsole调试
+ * +++++++++++++++++++++++++++++++++++
+ * */
 import vconsole from 'vconsole';
 new vconsole();
 
-/*全局变量*/
+
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 全局变量
+ * +++++++++++++++++++++++++++++++++++
+ * */
 Vue.prototype._Decrypt=decrypt;//解密
 Vue.prototype._Encrypt=encrypt;//加密
+Vue.config.productionTip = false;
 
-/*路由拦截授权*/
+
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 路由拦截
+ * +++++++++++++++++++++++++++++++++++
+ * */
 router.beforeEach((to, from, next) => {
   if (to.matched.some(res => res.meta.requireAuth)) {
     /*如果localStorage中的信息没了，也执行登出并跳转登录界面*/
@@ -40,10 +70,8 @@ router.beforeEach((to, from, next) => {
             });
             next();
           } else {
-            /*删除localstorage中的数据*/
-            removeStore('isLogin');
-            removeStore('userPhone');
             /*没登录则跳转到登录界面*/
+            store.commit("SET_LOGIN", {userState:false});
             next({
               path: '/login',
               query: {redirect: to.fullPath}
@@ -59,8 +87,12 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-Vue.config.productionTip = false;
 
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 实例化vue
+ * +++++++++++++++++++++++++++++++++++
+ * */
 new Vue({
   router,
   store,

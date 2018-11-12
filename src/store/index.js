@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import mutations from './mutations'
-
 Vue.use(Vuex);
 
 
-/*状态*/
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 全局store状态
+ * +++++++++++++++++++++++++++++++++++
+ * */
 const state = {
     isLogin: false,//是否登录
     userMobile:"",//用户手机号

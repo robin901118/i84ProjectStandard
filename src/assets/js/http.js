@@ -10,13 +10,15 @@ import store from '../../store/'
     "http://tujfc.i84.com.cn:8080";//涂建飞
   */
 const baseUrl = 'http://clife.ngrok.i84.com.cn';
-
 const CancelToken = axios.CancelToken;
 axios.defaults.baseURL = baseUrl;
 
-//------------------------- 请求拦截器 -----------------------------//
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 请求拦截
+ * +++++++++++++++++++++++++++++++++++
+ * */
 axios.interceptors.request.use(
-
     config => {
         /*post请求头*/
         config.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
@@ -30,7 +32,11 @@ axios.interceptors.request.use(
         return Promise.reject(error);
 });
 
-//------------------------- 响应拦截器 -----------------------------//
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 响应拦截
+ * +++++++++++++++++++++++++++++++++++
+ * */
 axios.interceptors.response.use(
     response => {
         return response["data"];
@@ -92,8 +98,7 @@ axios.interceptors.response.use(
 );
 
 export async function ajax(type = 'get',url, pms) {
-    /*打开loading*/
-    store.commit("SET_LOADING",true);
+    store.commit("SET_LOADING",true);//打开loading
     let resData = await axios({
         url: url,
         method: type,
@@ -103,23 +108,19 @@ export async function ajax(type = 'get',url, pms) {
             window.cancelRequire = c;
         })
     });
-    /*关闭loading*/
-    store.commit("SET_LOADING",false);
+    store.commit("SET_LOADING",false);//关闭loading
 
     try{
         if (typeof resData === "string") throw resData;
         if (!isJson(resData)) throw "系统正在维护,请稍后再试!";
-        /*这个_code码和_msg是后台定义的，具体参考后台标准*/
         if (resData["_code"]!=='99999') throw resData["_msg"];
-        /*_result也是后台定义的，根据api标准改变*/
         return new Promise(res=>{
             res(resData["_result"])
         });
     }catch (e) {
         let error = e;
         if(typeof e !== "string") error = e.toString();
-        /*打开错误弹窗，通过vuex来改变公用状态*/
-        store.commit('SET_ERR_DIALOG',{show:true,icon:undefined,txt:error});
+        store.commit('SET_ERR_DIALOG',{show:true,txt:error});
         return false;
     }
 }
