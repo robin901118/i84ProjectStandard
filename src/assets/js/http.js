@@ -13,6 +13,7 @@ const baseUrl = 'http://clife.ngrok.i84.com.cn';
 const CancelToken = axios.CancelToken;
 axios.defaults.baseURL = baseUrl;
 
+
 /**
  * +++++++++++++++++++++++++++++++++++
  * 请求拦截
@@ -31,6 +32,7 @@ axios.interceptors.request.use(
     error => {
         return Promise.reject(error);
 });
+
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -97,6 +99,14 @@ axios.interceptors.response.use(
     }
 );
 
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 通用ajax请求封装函数
+ * @param type String 请求方式
+ * @param url  String API地址
+ * @param pms  Object 请求参数
+ * +++++++++++++++++++++++++++++++++++
+ * */
 export async function ajax(type = 'get',url, pms) {
     store.commit("SET_LOADING",true);//打开loading
     let resData = await axios({

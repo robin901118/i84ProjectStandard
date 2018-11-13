@@ -10,18 +10,21 @@ Vue.use(Vuex);
  * +++++++++++++++++++++++++++++++++++
  * */
 const state = {
-    isLogin: false,//是否登录
-    userMobile:"",//用户手机号
-    loadingShow:false,//loadingShow
-    errorDialogShow:false,//错误弹窗显示/隐藏
-    errorDialogTxt:"",//错误弹窗信息
-    errorDialogIcon:"",//错误弹窗图标
+  isLogin: false,//是否登录
+  userMobile: "",//用户手机号
+  loadingShow: false,//loadingShow
+  errorDialogShow: false,//错误弹窗显示/隐藏
+  errorDialogTxt: "",//错误弹窗信息
+  errorDialogIcon: "",//错误弹窗图标
+  toastTxt: "",//吐司提示文本
+  toastShow: false,//吐司提示显示
+  toastType: '',//吐司类型
 };
 
 
 export default new Vuex.Store({
-    state,
-    mutations
+  state,
+  mutations
 })
 
 

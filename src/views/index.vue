@@ -6,8 +6,13 @@
 </template>
 
 <script>
+  import {ajaxAll} from '../assets/js/http';
+
   export default {
-    name: 'home'
+    name: 'home',
+    async created() {
+
+    }
   }
 </script>
 

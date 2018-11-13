@@ -12,9 +12,10 @@
   export default {
     data() {
       return {
-        transitionName: 'slide-right', // 默认动态路由变化为slide-right
+        transitionName: 'slide-right',
         loading: null,//loading单例组件
-        diaLog: null//弹窗单例组件
+        diaLog: null,//弹窗单例组件
+        toast:null,//吐司单例组件
       }
     },
     computed: {
@@ -22,10 +23,18 @@
         'loadingShow',
         'errorDialogShow',
         'errorDialogTxt',
-        'errorDialogIcon'
+        'errorDialogIcon',
+        'toastTxt',
+        'toastShow',
+        'toastType'
       ])
     },
     watch: {
+      /**
+       * +++++++++++++++++++++++++++++++++++
+       * 加载loading
+       * +++++++++++++++++++++++++++++++++++
+       * */
       loadingShow(nv) {
         if (nv) {
           /*单例模式，参考cube-ui toast配置*/
@@ -38,7 +47,13 @@
           this.loading.hide();
         }
       },
-      /*错误弹窗*/
+
+
+      /**
+       * +++++++++++++++++++++++++++++++++++
+       * 错误弹窗提示
+       * +++++++++++++++++++++++++++++++++++
+       * */
       errorDialogShow(nv) {
         if (nv) {
           this.diaLog = this.$createDialog({
@@ -46,17 +61,58 @@
             icon: this.errorDialogIcon,
             content: this.errorDialogTxt,
             onConfirm: () => {
-              this.$store.commit('SET_ERR_DIALOG', {show: false});//隐藏dialog
+              this.$store.commit('SET_ERR_DIALOG', {show: false});
             }
           }).show();
+        } else {
+          if(!this.diaLog) return;
+          this.diaLog.hide();
         }
       },
-      /*路由前进后退*/
+
+
+      /**
+       * +++++++++++++++++++++++++++++++++++
+       * toast提示
+       * +++++++++++++++++++++++++++++++++++
+       * */
+      toastShow(nv){
+        if(nv){
+          this.toast=this.$createToast({
+            time:3000,
+            type:this.toastType,
+            txt:this.toastTxt,
+            onTimeout:()=>{
+              this.$store.commit('SET_TOAST',{show:false});
+            }
+          }).show();
+        }else{
+          if(!this.toast) return;
+          this.toast.hide();
+        }
+      },
+
+
+      /**
+       * +++++++++++++++++++++++++++++++++++
+       * 路由前进后退
+       * +++++++++++++++++++++++++++++++++++
+       * */
       $route(to, from) {
         if (to.meta.index > from.meta.index) {
           this.transitionName = 'slide-left';
         } else {
           this.transitionName = 'slide-right';
+        }
+
+        /*关闭diaLog*/
+        if(this.diaLog){
+          this.$store.commit('SET_ERR_DIALOG', {show: false});
+        }
+
+        /*关闭吐司提示*/
+        if(this.toast){
+          this.$store.commit('SET_TOAST',{show:false});
         }
       }
     },
