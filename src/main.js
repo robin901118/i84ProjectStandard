@@ -7,6 +7,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/'
+import moment from 'moment'
 
 
 /**
@@ -33,8 +34,9 @@ new vconsole();
  * 全局变量
  * +++++++++++++++++++++++++++++++++++
  * */
-Vue.prototype._Decrypt=decrypt;//解密
-Vue.prototype._Encrypt=encrypt;//加密
+Vue.prototype.$decrypt = decrypt;//解密
+Vue.prototype.$encrypt = encrypt;//加密
+Vue.prototype.$moment = moment;//格式化时间
 Vue.config.productionTip = false;
 
 
