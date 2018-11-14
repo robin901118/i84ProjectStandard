@@ -59,11 +59,8 @@ router.beforeEach((to, from, next) => {
         query: {redirect: to.fullPath}//携带redirect地址，方便登陆成功返回原地址
       });
     } else {
-      /*从vuex中获取登录状态和手机号,根据状态调用判断登录接口,避免频繁请求*/
-      if (store.state.isLogin && store.state.userMobile) {
-        document.title = to.meta.title;//更改title
-        next();
-      }
+      document.title = to.meta.title;//更改title
+      next();
     }
   } else {
     next();
