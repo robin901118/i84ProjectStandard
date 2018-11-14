@@ -9,6 +9,7 @@ Vue.use(Router);
  * +++++++++++++++++++++++++++++++++++
  * */
 const Home = resolve => require(['@/views/index.vue'], resolve);
+const Login = resolve => require(['@/views/login.vue'], resolve);
 
 
 /**
@@ -22,7 +23,12 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Home,
-      meta: {requireAuth: false, title: '主页', index: 1}
+      meta: {requireAuth: true, title: '主页', index: 1}
+    },{
+      path: '/',
+      name: 'login',
+      component: Login,
+      meta: {requireAuth: false, title: '登录', index: 2}
     }
   ]
 });

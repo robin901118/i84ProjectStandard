@@ -1,12 +1,17 @@
 <template>
     <div class="home">
-        {{time}}
-        <router-link to="/login" class="btt" flex="cross:center main:center">主页</router-link>
+        <header>
+            {{isLogin}}----{{phone}}
+        </header>
+        <article>
+            <button type="button" @click="save">存储</button>
+        </article>
+        <footer></footer>
     </div>
 </template>
 
 <script>
-
+    import {setStore,getStore} from '../assets/js/common';
   export default {
     name: 'home',
     data(){
@@ -14,11 +19,26 @@
         time:""
       }
     },
-    created(){
-      this.time = this.$moment('2011-11-11 15:00:26').format('YYYY/MM/DD HH:mm:ss');
+    methods:{
+      save(){
+        setStore('isLogin',1);
+        setStore('phone','18559893609');
+      }
+    },
+    computed:{
+      isLogin(){
+        return getStore('isLogin');
+      },
+      phone(){
+        return getStore('phone');
+      }
     }
   }
 </script>
 
 <style scoped>
+    .home{height: 100%;}
+    header{height: 20vw;background: #ff988c;}
+    footer{height: 20vw;background: teal;}
+    article{height: calc(100% - 40vw);background: darkgray;}
 </style>

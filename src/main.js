@@ -47,39 +47,21 @@ Vue.config.productionTip = false;
  * */
 router.beforeEach((to, from, next) => {
   if (to.matched.some(res => res.meta.requireAuth)) {
-    /*如果localStorage中的信息没了，也执行登出并跳转登录界面*/
+    console.log('是否登录',!getStore('isLogin'));
+    console.log('是否有手机号',!getStore('userPhone'));
+    console.log('联合起来',!(getStore('isLogin') || getStore('userPhone')));
+
+
     if (!(getStore('isLogin') || getStore('userPhone'))) {
-      loginOut().then(() => {
-        next({
-          path: '/login',
-          query: {redirect: to.fullPath}//携带redirect地址，方便登陆成功返回原地址
-        });
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}//携带redirect地址，方便登陆成功返回原地址
       });
     } else {
       /*从vuex中获取登录状态和手机号,根据状态调用判断登录接口,避免频繁请求*/
       if (store.state.isLogin && store.state.userMobile) {
         document.title = to.meta.title;//更改title
         next();
-      } else {
-        isLoginApi().then(res => {
-          /*具体参数参照api返回字段*/
-          if (res['loginFlag']) {
-            document.title = to.meta.title;//更改title
-            /*状态和手机号码，手机号码从localstorage中取出需要解密，然后存入vuex中*/
-            store.commit("SET_LOGIN", {
-              userState:true,
-              userMobile:decrypt(getStore('userPhone'))
-            });
-            next();
-          } else {
-            /*没登录则跳转到登录界面*/
-            store.commit("SET_LOGIN", {userState:false});
-            next({
-              path: '/login',
-              query: {redirect: to.fullPath}
-            });
-          }
-        });
       }
     }
   } else {
