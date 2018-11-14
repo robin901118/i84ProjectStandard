@@ -25,7 +25,7 @@ const router = new Router({
       component: Home,
       meta: {requireAuth: true, title: '主页', index: 1}
     },{
-      path: '/',
+      path: '/login',
       name: 'login',
       component: Login,
       meta: {requireAuth: false, title: '登录', index: 2}

@@ -50,7 +50,8 @@ router.beforeEach((to, from, next) => {
     console.log('是否登录',!getStore('isLogin'));
     console.log('是否有手机号',!getStore('userPhone'));
     console.log('联合起来',!(getStore('isLogin') || getStore('userPhone')));
-
+    //更改title
+    document.title = to.meta.title;
 
     if (!(getStore('isLogin') || getStore('userPhone'))) {
       next({
@@ -65,8 +66,6 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
-    //更改title
-    document.title = to.meta.title;
     next();
   }
 });
