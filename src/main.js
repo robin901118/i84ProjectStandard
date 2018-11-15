@@ -8,6 +8,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store/'
 import moment from 'moment'
+import VueLazyload from 'vue-lazyload'
 
 
 /**
@@ -17,7 +18,7 @@ import moment from 'moment'
  * */
 import './cube-ui'
 import {getStore, decrypt, encrypt} from './assets/js/common'
-import {loginOut, isLoginApi} from './assets/js/api';
+Vue.use(VueLazyload);
 
 
 /**
@@ -47,9 +48,6 @@ Vue.config.productionTip = false;
  * */
 router.beforeEach((to, from, next) => {
   if (to.matched.some(res => res.meta.requireAuth)) {
-    console.log('是否登录',!getStore('isLogin'));
-    console.log('是否有手机号',!getStore('userPhone'));
-    console.log('联合起来',!(getStore('isLogin') || getStore('userPhone')));
     //更改title
     document.title = to.meta.title;
 

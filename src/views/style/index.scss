@@ -1,0 +1,11 @@
+.scrollBox{
+  height: 300px;
+  background: gray;
+  & .list:last-of-type{border-bottom: none;}
+  .list{
+    height: 90px;
+    font-size: 18px;
+    border-bottom: 1px solid black;
+    img{height: 90%;}
+  }
+}

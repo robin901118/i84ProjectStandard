@@ -1,44 +1,75 @@
 <template>
     <div class="home">
-        <header>
-            {{isLogin}}----{{phone}}
-        </header>
-        <article>
-            <button type="button" @click="save">存储</button>
-        </article>
-        <footer></footer>
+
+        <!--上拉加载列表 开始-->
+        <div class="scrollBox">
+            <cube-scroll
+                    ref="scroll"
+                    :data="listData"
+                    :options="scrollOption"
+                    @pulling-up="onPullingUp">
+
+                <div class="list"
+                     flex="cross:center main:center"
+                     v-for="item in listData">
+                    {{item.text}}
+                    <img v-lazy="item.img">
+                </div>
+
+            </cube-scroll>
+        </div>
+        <!--上拉加载列表 结束-->
+
     </div>
 </template>
 
 <script>
-    import {setStore,getStore} from '../assets/js/common';
-  export default {
+    import {imgArr} from "./img";
+
+    export default {
     name: 'home',
     data(){
       return {
-        time:""
+        scrollOption:{
+          tap:true,
+          scrollbar:true,
+          click:true,
+          pullUpLoad: true,
+        },
+        listData:[],
+        imgArr:imgArr
       }
     },
     methods:{
-      save(){
-        setStore('isLogin',1);
-        setStore('phone','18559893609');
+      /*上拉加载*/
+      onPullingUp(){
+        let startNum = this.listData.length,
+            newDataArr = [];
+        setTimeout(()=>{
+          for(let i=startNum;i<startNum+10;i++){
+            let obj = {};
+            obj['text'] = i;
+            obj['img'] = imgArr[(startNum+10) - i];
+            newDataArr.push(obj);
+          }
+          this.listData = this.listData.concat(newDataArr);
+        },2000)
       }
     },
-    computed:{
-      isLogin(){
-        return getStore('isLogin');
-      },
-      phone(){
-        return getStore('phone');
+    mounted(){
+      let arr=[];
+      for(let i=0;i<=10;i++){
+        let obj = {};
+        obj['text'] = i;
+        obj['img'] = imgArr[i];
+        arr.push(obj);
       }
+      this.listData = this.listData.concat(arr);
+      console.log(this.listData);
     }
   }
 </script>
 
-<style scoped>
-    .home{height: 100%;}
-    header{height: 20vw;background: #ff988c;}
-    footer{height: 20vw;background: teal;}
-    article{height: calc(100% - 40vw);background: darkgray;}
+<style lang="scss" scoped>
+    @import "./style/index.scss";
 </style>

@@ -25,6 +25,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue-cli-plugin-cube-ui": "^0.1.4",
+    "vue-lazyload": "^1.2.6",
     "vue-template-compiler": "^2.5.17"
   },
   "transformModules": {

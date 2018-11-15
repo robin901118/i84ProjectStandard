@@ -9,7 +9,6 @@ Vue.use(Router);
  * +++++++++++++++++++++++++++++++++++
  * */
 const Home = resolve => require(['@/views/index.vue'], resolve);
-const Login = resolve => require(['@/views/login.vue'], resolve);
 
 
 /**
@@ -23,15 +22,9 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Home,
-      meta: {requireAuth: true, title: '主页', index: 1}
-    },{
-      path: '/login',
-      name: 'login',
-      component: Login,
-      meta: {requireAuth: false, title: '登录', index: 2}
+      meta: {requireAuth: false, title: '主页', index: 1}
     }
   ]
 });
-
 
 export default router;
