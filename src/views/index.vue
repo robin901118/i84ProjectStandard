@@ -64,8 +64,6 @@
         obj['img'] = imgArr[i];
         arr.push(obj);
       }
-      this.listData = this.listData.concat(arr);
-      console.log(this.listData);
     }
   }
 </script>

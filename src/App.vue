@@ -114,6 +114,11 @@
         if(this.toast){
           this.$store.commit('SET_TOAST',{show:false});
         }
+
+        /*取消请求*/
+        if(window.cancelRequire){
+          window.cancelRequire();
+        }
       }
     },
   }

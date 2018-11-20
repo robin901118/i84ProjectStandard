@@ -9,6 +9,7 @@ import router from './router'
 import store from './store/'
 import moment from 'moment'
 import VueLazyload from 'vue-lazyload'
+import goodStorage from 'good-storage'
 
 
 /**
@@ -17,7 +18,7 @@ import VueLazyload from 'vue-lazyload'
  * +++++++++++++++++++++++++++++++++++
  * */
 import './cube-ui'
-import {getStore, decrypt, encrypt} from './assets/js/common'
+import {decrypt, encrypt} from './assets/js/common'
 Vue.use(VueLazyload);
 
 
@@ -38,6 +39,7 @@ new vconsole();
 Vue.prototype.$decrypt = decrypt;//解密
 Vue.prototype.$encrypt = encrypt;//加密
 Vue.prototype.$moment = moment;//格式化时间
+Vue.prototype.$storage = goodStorage;//封装好的storage
 Vue.config.productionTip = false;
 
 
@@ -51,7 +53,7 @@ router.beforeEach((to, from, next) => {
     //更改title
     document.title = to.meta.title;
 
-    if (!(getStore('isLogin') || getStore('userPhone'))) {
+    if (!(goodStorage.get('isLogin') || goodStorage.get('userPhone'))) {
       next({
         path: '/login',
         query: {redirect: to.fullPath}//携带redirect地址，方便登陆成功返回原地址

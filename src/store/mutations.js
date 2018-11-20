@@ -1,4 +1,4 @@
-import {removeStore} from '../assets/js/common';
+import goodStorage from 'good-storage';
 
 export default {
   /*设置登录*/
@@ -8,8 +8,8 @@ export default {
 
     //登出
     if (!userState) {
-      removeStore('isLogin');
-      removeStore('userPhone');
+      goodStorage.remove('isLogin');
+      goodStorage.remove('userPhone');
     }
   },
   /*设置loading状态*/
