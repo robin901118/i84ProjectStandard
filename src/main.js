@@ -8,8 +8,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store/'
 import moment from 'moment'
-import VueLazyload from 'vue-lazyload'
 import goodStorage from 'good-storage'
+import VueLazyImageLoading from 'vue-lazy-image-loading'
 
 
 /**
@@ -19,7 +19,8 @@ import goodStorage from 'good-storage'
  * */
 import './cube-ui'
 import {decrypt, encrypt} from './assets/js/common'
-Vue.use(VueLazyload);
+Vue.use(VueLazyImageLoading);
+
 
 
 /**
@@ -49,17 +50,15 @@ Vue.config.productionTip = false;
  * +++++++++++++++++++++++++++++++++++
  * */
 router.beforeEach((to, from, next) => {
+  //更改title
+  document.title = to.meta.title;
   if (to.matched.some(res => res.meta.requireAuth)) {
-    //更改title
-    document.title = to.meta.title;
-
     if (!(goodStorage.get('isLogin') || goodStorage.get('userPhone'))) {
       next({
         path: '/login',
         query: {redirect: to.fullPath}//携带redirect地址，方便登陆成功返回原地址
       });
     } else {
-      document.title = to.meta.title;//更改title
       next();
     }
   } else {

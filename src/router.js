@@ -9,6 +9,7 @@ Vue.use(Router);
  * +++++++++++++++++++++++++++++++++++
  * */
 const Home = resolve => require(['@/views/index.vue'], resolve);
+const notFind = resolve => require(['@/views/404.vue'], resolve);
 
 
 /**
@@ -18,6 +19,12 @@ const Home = resolve => require(['@/views/index.vue'], resolve);
  * */
 const router = new Router({
   routes: [
+    {
+      path: "*",
+      name: "notFind",
+      component: notFind,
+      meta: {requireAuth: false, title: '404', index: 9999}
+    },
     {
       path: '/',
       name: 'home',

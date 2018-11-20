@@ -13,7 +13,8 @@
                      flex="cross:center main:center"
                      v-for="item in listData">
                     {{item.text}}
-                    <img v-lazy="item.img">
+                    <!--<img v-lazy="item.img">-->
+                    <lazy-img class="lazyImg" :src="item.img"/>
                 </div>
 
             </cube-scroll>
@@ -34,7 +35,7 @@
           tap:true,
           scrollbar:true,
           click:true,
-          pullUpLoad: true,
+          pullUpLoad: true
         },
         listData:[],
         imgArr:imgArr
@@ -64,6 +65,7 @@
         obj['img'] = imgArr[i];
         arr.push(obj);
       }
+      this.listData = arr;
     }
   }
 </script>
