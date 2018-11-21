@@ -17,7 +17,7 @@
         <!--列表结束-->
 
         <!--页脚开始-->
-        <footer flex="cross:center main:center">
+        <footer flex="cross:center main:center" @click="add">
             页脚
         </footer>
         <!--页脚结束-->
@@ -32,12 +32,18 @@
         listData: []
       }
     },
+    methods:{
+      add(){
+        let newArr = [132456];
+        this.listData = this.listData.concat(newArr);
+      }
+    },
     created() {
       let arr = [];
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 10; i++) {
         arr.push(i);
       }
-      this.listData=arr;
+      this.listData=[...arr];
     }
   }
 </script>

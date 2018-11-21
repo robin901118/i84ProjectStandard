@@ -14,13 +14,25 @@ const isWeixinOrAlipay = () => {
 };
 
 /**
+ * 获取手机系统类型
+ * */
+const getPhoneSystem = () => {
+  let ua = navigator.userAgent;
+  if (ua.indexOf('Android') > -1 || ua.indexOf('Linux') > -1) {
+    return "Android"
+  } else if (ua.indexOf('iPhone') > -1) {
+    return "iPhone"
+  }
+};
+
+/**
  * 根据参数名称从url中获取值
  * @param parameterName 参数名称
  * @param currentUrl 当前url
  * @param errorMsg 错误提示信息
  * @returns {*}
  */
-const GetQueryString = (parameterName, currentUrl, errorMsg) => {
+const getQueryString = (parameterName, currentUrl, errorMsg) => {
   let rs = new RegExp("(^|[&,?])" + parameterName + "=([^\&]*)(\&|$)", "gi").exec(currentUrl), tmp;
   if (tmp = rs) return tmp[2];
   return errorMsg;
@@ -61,7 +73,8 @@ const decrypt = word => {
 
 export {
   isWeixinOrAlipay,
-  GetQueryString,
+  getQueryString,
+  getPhoneSystem,
   isJson,
   decrypt,
   encrypt
