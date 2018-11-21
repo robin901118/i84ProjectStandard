@@ -19,8 +19,7 @@ import VueLazyImageLoading from 'vue-lazy-image-loading'
  * */
 import './cube-ui'
 import {decrypt, encrypt} from './assets/js/common'
-Vue.use(VueLazyImageLoading);
-
+Vue.use(VueLazyImageLoading);//图片懒加载
 
 
 /**
@@ -52,18 +51,7 @@ Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
   //更改title
   document.title = to.meta.title;
-  if (to.matched.some(res => res.meta.requireAuth)) {
-    if (!(goodStorage.get('isLogin') || goodStorage.get('userPhone'))) {
-      next({
-        path: '/login',
-        query: {redirect: to.fullPath}//携带redirect地址，方便登陆成功返回原地址
-      });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
+  next();
 });
 
 

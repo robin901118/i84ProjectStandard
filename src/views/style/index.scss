@@ -1,11 +1,24 @@
-.scrollBox{
-  height: 300px;
-  background: gray;
-  & .list:last-of-type{border-bottom: none;}
-  .list{
-    height: 90px;
-    font-size: 18px;
-    border-bottom: 1px solid black;
-    .lazyImg{width: 30vw;}
-  }
+.home{
+  height: 100%;
+}
+header{
+  height: 45px;
+  background: #d5dce2;
+}
+section{
+  height: calc(100% - 90px);
+  background: sandybrown;
+}
+footer{
+  height: 45px;
+  background: salmon;
+}
+
+/*列表*/
+.list>li{
+  height: 100px;
+  border-bottom: 1px solid gray;
+  text-align: center;
+  line-height: 100px;
+  &:last-child{border-bottom: none;}
 }

@@ -36,16 +36,6 @@ const isJson = obj => {
 };
 
 /**
- * 支付宝支付
- * @param String groupNo 组合订单号
- */
-import {baseUrl} from './http';
-
-const callAliPay = groupNo => {
-  window.location.replace(`${baseUrl}/auth/alipayto?groupNo=${groupNo}&returnUrl=/h5/followBuy/payProxy.html?groupNo=${groupNo}`);
-};
-
-/**
  * 前端加密解密
  * AES加密
  * */
@@ -73,7 +63,6 @@ export {
   isWeixinOrAlipay,
   GetQueryString,
   isJson,
-  callAliPay,
   decrypt,
   encrypt
 }

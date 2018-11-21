@@ -1,7 +1,9 @@
 <template>
     <div id="app">
         <transition :name="transitionName">
-            <router-view class="Router"/>
+            <article class="Router">
+                <router-view/>
+            </article>
         </transition>
     </div>
 </template>
@@ -15,7 +17,7 @@
         transitionName: 'slide-right',
         loading: null,//loading单例组件
         diaLog: null,//弹窗单例组件
-        toast:null,//吐司单例组件
+        toast: null,//吐司单例组件
       }
     },
     computed: {
@@ -65,7 +67,7 @@
             }
           }).show();
         } else {
-          if(!this.diaLog) return;
+          if (!this.diaLog) return;
           this.diaLog.hide();
         }
       },
@@ -76,18 +78,18 @@
        * toast提示
        * +++++++++++++++++++++++++++++++++++
        * */
-      toastShow(nv){
-        if(nv){
-          this.toast=this.$createToast({
-            time:3000,
-            type:this.toastType,
-            txt:this.toastTxt,
-            onTimeout:()=>{
-              this.$store.commit('SET_TOAST',{show:false});
+      toastShow(nv) {
+        if (nv) {
+          this.toast = this.$createToast({
+            time: 3000,
+            type: this.toastType,
+            txt: this.toastTxt,
+            onTimeout: () => {
+              this.$store.commit('SET_TOAST', {show: false});
             }
           }).show();
-        }else{
-          if(!this.toast) return;
+        } else {
+          if (!this.toast) return;
           this.toast.hide();
         }
       },
@@ -106,17 +108,17 @@
         }
 
         /*关闭diaLog*/
-        if(this.diaLog){
+        if (this.diaLog) {
           this.$store.commit('SET_ERR_DIALOG', {show: false});
         }
 
         /*关闭吐司提示*/
-        if(this.toast){
-          this.$store.commit('SET_TOAST',{show:false});
+        if (this.toast) {
+          this.$store.commit('SET_TOAST', {show: false});
         }
 
         /*取消请求*/
-        if(window.cancelRequire){
+        if (window.cancelRequire) {
           window.cancelRequire();
         }
       }

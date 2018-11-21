@@ -1,17 +1,4 @@
-import goodStorage from 'good-storage';
-
 export default {
-  /*设置登录*/
-  ['SET_LOGIN'](state, {userState, userPhone = ""}) {
-    state.isLogin = userState;
-    state.userMobile = userPhone;
-
-    //登出
-    if (!userState) {
-      goodStorage.remove('isLogin');
-      goodStorage.remove('userPhone');
-    }
-  },
   /*设置loading状态*/
   ['SET_LOADING'](state, isloading) {
     state.loadingShow = isloading;

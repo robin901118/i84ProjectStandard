@@ -1,71 +1,43 @@
 <template>
     <div class="home">
+        <!--页头开始-->
+        <header flex="cross:center main:center">
+            页头
+        </header>
+        <!--页头结束-->
 
-        <!--上拉加载列表 开始-->
-        <div class="scrollBox">
-            <cube-scroll
-                    ref="scroll"
-                    :data="listData"
-                    :options="scrollOption"
-                    @pulling-up="onPullingUp">
-
-                <div class="list"
-                     flex="cross:center main:center"
-                     v-for="item in listData">
-                    {{item.text}}
-                    <!--<img v-lazy="item.img">-->
-                    <lazy-img class="lazyImg" :src="item.img"/>
-                </div>
-
+        <!--列表开始-->
+        <section>
+            <cube-scroll ref="scroll" :data="listData">
+                <ul class="list">
+                    <li v-for="item in listData">{{item}}</li>
+                </ul>
             </cube-scroll>
-        </div>
-        <!--上拉加载列表 结束-->
+        </section>
+        <!--列表结束-->
 
+        <!--页脚开始-->
+        <footer flex="cross:center main:center">
+            页脚
+        </footer>
+        <!--页脚结束-->
     </div>
 </template>
 
 <script>
-    import {imgArr} from "./img";
-
-    export default {
+  export default {
     name: 'home',
-    data(){
+    data() {
       return {
-        scrollOption:{
-          tap:true,
-          scrollbar:true,
-          click:true,
-          pullUpLoad: true
-        },
-        listData:[],
-        imgArr:imgArr
+        listData: []
       }
     },
-    methods:{
-      /*上拉加载*/
-      onPullingUp(){
-        let startNum = this.listData.length,
-            newDataArr = [];
-        setTimeout(()=>{
-          for(let i=startNum;i<startNum+10;i++){
-            let obj = {};
-            obj['text'] = i;
-            obj['img'] = imgArr[(startNum+10) - i];
-            newDataArr.push(obj);
-          }
-          this.listData = this.listData.concat(newDataArr);
-        },2000)
+    created() {
+      let arr = [];
+      for (let i = 0; i < 100; i++) {
+        arr.push(i);
       }
-    },
-    mounted(){
-      let arr=[];
-      for(let i=0;i<=10;i++){
-        let obj = {};
-        obj['text'] = i;
-        obj['img'] = imgArr[i];
-        arr.push(obj);
-      }
-      this.listData = arr;
+      this.listData=arr;
     }
   }
 </script>

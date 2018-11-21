@@ -10,8 +10,6 @@ Vue.use(Vuex);
  * +++++++++++++++++++++++++++++++++++
  * */
 const state = {
-  isLogin: false,//是否登录
-  userMobile: "",//用户手机号
   loadingShow: false,//loadingShow
   errorDialogShow: false,//错误弹窗显示/隐藏
   errorDialogTxt: "",//错误弹窗信息
