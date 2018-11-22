@@ -33,7 +33,6 @@
     name: 'home',
     data() {
       return {
-        src: "",
         orientation: null,//图片元信息
         degree: 0,//原图片旋转角度
         windowWidth: 0,//屏幕的宽度
@@ -56,7 +55,9 @@
     },
     methods: {
       /**
+       * +++++++++++++++++++++++++++++++++++++
        * 上传图片
+       * +++++++++++++++++++++++++++++++++++++
        * */
       upLoadChange() {
         let files = this.$refs.file.files[0],
@@ -89,7 +90,9 @@
       },
 
       /**
+       * +++++++++++++++++++++++++++++++++++++
        * 初始化canvas
+       * +++++++++++++++++++++++++++++++++++++
        * */
       createCanvas(imgBase64) {
         this.imgEl = new Image();
@@ -131,9 +134,11 @@
       },
 
       /**
+       * +++++++++++++++++++++++++++++++++++++
        * @param {string} img 图片的base64
        * @param {int} dir exif获取的方向信息
        * @param {function} next 回调方法，返回校正方向后的base64
+       * +++++++++++++++++++++++++++++++++++++
        * */
       getImgData(img, dir, next) {
         let image = new Image();
@@ -201,7 +206,9 @@
       },
 
       /**
+       * +++++++++++++++++++++++++++++++++++++
        * 初始化hammer
+       * +++++++++++++++++++++++++++++++++++++
        * */
       initHammer() {
         //隐藏上传bar
@@ -209,7 +216,6 @@
 
         let hammer = new Hammer(document.querySelector('#canvasMask'));
         hammer.get('pinch').set({enable: true});
-        hammer.get("rotate").set({enable: true});
 
         /*缩放 */
         hammer.on('pinchmove pinchstart pinchin pinchout', e => {
@@ -239,7 +245,9 @@
       },
 
       /**
+       * +++++++++++++++++++++++++++++++++++++
        * 裁切
+       * +++++++++++++++++++++++++++++++++++++
        * */
       crop() {
         let base64 = document.querySelector('#canvas').toDataURL("image/png");
@@ -253,9 +261,9 @@
           upLoadImg = dataURItoBlob(document.querySelector('#resultImg').toDataURL("image/jpeg"));
 
           /**
-           * +++++++++++++++++++++++++++++++++++++++++++++
+           * +++++++
            * 开始上传
-           * +++++++++++++++++++++++++++++++++++++++++++++
+           * +++++++
            * */
           let formData = new FormData();
           formData.append('action', "edit_user_pic");//有些苹果不支持get方法，这里是个坑，所以用append
@@ -274,8 +282,9 @@
       },
     },
     mounted() {
-      let canvas = document.querySelector('#canvas'), canvasMask = document.querySelector('#canvasMask'),
-        canvasRsut = document.querySelector('#resultImg');
+      let canvas = document.querySelector('#canvas'),
+          canvasMask = document.querySelector('#canvasMask'),
+          canvasRsut = document.querySelector('#resultImg');
       this.canvas = canvas.getContext('2d');
       this.canvasMask = canvasMask.getContext('2d');
       this.canvasResult = canvasRsut.getContext('2d');
