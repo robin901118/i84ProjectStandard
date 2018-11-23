@@ -1,5 +1,6 @@
 const path = require('path');
-const baseUrl = process.env.NODE_ENV === 'production' ? './' : '/';
+const baseUrl = process.env.NODE_ENV === 'production' ? './' : 'y' +
+  '';
 
 module.exports = {
   /*build的时候打包成相对路径，dev时用绝对路径*/

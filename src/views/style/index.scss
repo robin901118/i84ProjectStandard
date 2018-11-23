@@ -18,7 +18,5 @@ footer{
 .list>li{
   height: 100px;
   border-bottom: 1px solid gray;
-  text-align: center;
-  line-height: 100px;
   &:last-child{border-bottom: none;}
 }

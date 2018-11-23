@@ -1,8 +1,9 @@
 <template>
     <div class="home">
         <!--页头开始-->
-        <header flex="cross:center main:center">
-            页头
+        <header flex="cross:center main:center dir:top">
+            <p>页头</p>
+            <p>页头</p>
         </header>
         <!--页头结束-->
 
@@ -10,14 +11,19 @@
         <section>
             <cube-scroll ref="scroll" :data="listData">
                 <ul class="list">
-                    <li v-for="item in listData">{{item}}</li>
+                    <li v-for="item in listData">
+                        <p>我是青蛙</p>
+                        <p>
+                            <span style=" letter-spacing: 2em; margin-right: -2em;">青蛙</span>:哈哈哈哈
+                        </p>
+                    </li>
                 </ul>
             </cube-scroll>
         </section>
         <!--列表结束-->
 
         <!--页脚开始-->
-        <footer flex="cross:center main:center" @click="add">
+        <footer flex="cross:center main:center">
             页脚
         </footer>
         <!--页脚结束-->
@@ -25,19 +31,15 @@
 </template>
 
 <script>
-  export default {
+    export default {
     name: 'home',
     data() {
       return {
-        listData: []
+        listData: [],
+        actionSheet:null
       }
     },
-    methods:{
-      add(){
-        let newArr = [132456];
-        this.listData = this.listData.concat(newArr);
-      }
-    },
+    methods:{},
     created() {
       let arr = [];
       for (let i = 0; i < 10; i++) {
