@@ -1,5 +1,6 @@
 const path = require('path');
 const baseUrl = process.env.NODE_ENV === 'production' ? './' : '/';
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   /*build的时候打包成相对路径，dev时用绝对路径*/
@@ -28,6 +29,18 @@ module.exports = {
     'cube-ui': {
       postCompile: true,
       theme: true
+    }
+  },
+  /*生产环境打包压缩gzip文件*/
+  configureWebpack:config=>{
+    if(process.env.NODE_ENV === 'production'){
+      return {
+        plugins:[new CompressionWebpackPlugin({
+          test:/\.js$|\.html$|\.css$/,
+          threshold:10240,
+          deleteOriginalAssets:false
+        })]
+      }
     }
   }
 }
