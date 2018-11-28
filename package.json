@@ -23,7 +23,6 @@
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-service": "^3.0.1",
-    "compression-webpack-plugin": "^2.0.0",
     "node-sass": "^4.9.0",
     "postcss-px-to-viewport": "^0.0.3",
     "sass-loader": "^7.0.1",

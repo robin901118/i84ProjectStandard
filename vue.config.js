@@ -1,6 +1,5 @@
 const path = require('path');
 const baseUrl = process.env.NODE_ENV === 'production' ? './' : '/';
-const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   /*build的时候打包成相对路径，dev时用绝对路径*/
@@ -31,23 +30,14 @@ module.exports = {
       theme: true
     }
   },
-  /*生产环境打包压缩gzip文件*/
-  configureWebpack:config=>{
-    if(process.env.NODE_ENV === 'production'){
-      return {
-        plugins:[new CompressionWebpackPlugin({
-          test:/\.js$|\.html$|\.css$/,
-          threshold:10240,
-          deleteOriginalAssets:false
-        })],
-
-        /*以下控件通过CDN引入*/
-        externals:{
-          'vue': 'Vue',
-          'vue-router': 'VueRouter',
-          'moment': 'moment'
-        }
+  configureWebpack: config => {
+    return {
+      /*以下控件通过CDN引入*/
+      externals:{
+        'vue': 'Vue',
+        'vue-router': 'VueRouter',
+        'moment': 'moment'
       }
     }
   }
-}
+};
