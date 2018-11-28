@@ -39,7 +39,14 @@ module.exports = {
           test:/\.js$|\.html$|\.css$/,
           threshold:10240,
           deleteOriginalAssets:false
-        })]
+        })],
+
+        /*以下控件通过CDN引入*/
+        externals:{
+          'vue': 'Vue',
+          'vue-router': 'VueRouter',
+          'moment': 'moment'
+        }
       }
     }
   }
