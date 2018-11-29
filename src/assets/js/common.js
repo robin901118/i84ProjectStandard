@@ -93,6 +93,28 @@ const dataURItoBlob = base64Data =>{
   return new Blob([ia], {type: mimeString});
 };
 
+/**
+ * 把json对象转换成数组
+ * @param obj
+ * @return Array || Boolean
+ * */
+const objectToArray = obj => {
+  if (!isJson(obj)) return false;
+  return Object.values(obj);
+};
+
+/**
+ * 判断数组中是否有某个值
+ * @param arr
+ * @param val
+ * @return Boolean
+ * */
+const isArrayValues = (arr,val) =>{
+  if(!Array.isArray(arr)) return false;
+  return arr.includes(val);
+};
+
+
 export {
   isWeixinOrAlipay,
   getQueryString,
@@ -100,5 +122,7 @@ export {
   isJson,
   decrypt,
   encrypt,
-  dataURItoBlob
+  dataURItoBlob,
+  objectToArray,
+  isArrayValues
 }
