@@ -3,11 +3,11 @@
  * 基础引入
  * +++++++++++++++++++++++++++++++++++
  * */
-import Vue from 'vue'
+// import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/'
-import moment from 'moment'
+// import moment from 'moment'
 import goodStorage from 'good-storage'
 import VueLazyImageLoading from 'vue-lazy-image-loading'
 

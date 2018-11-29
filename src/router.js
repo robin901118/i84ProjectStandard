@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+// import Vue from 'vue'
+// import Router from 'vue-router'
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -18,7 +18,7 @@ const imgEditor = resolve => require(['@/views/imgEditor.vue'], resolve);
  * 路由配置
  * +++++++++++++++++++++++++++++++++++
  * */
-const router = new Router({
+const router = new VueRouter({
   routes: [
     {
       path: "*",
