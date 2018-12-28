@@ -9,7 +9,7 @@ import store from '../../store/'
     "http://clife.ngrok.i84.com.cn";  // 测试
     "http://tujfc.i84.com.cn:8080";//涂建飞
   */
-const baseUrl = 'http://clife.ngrok.i84.com.cn';
+const baseUrl = 'https://www.easy-mock.com/mock/5c3e891a285344e0eeb035/api';
 const CancelToken = axios.CancelToken;
 axios.defaults.baseURL = baseUrl;
 
@@ -56,7 +56,7 @@ axios.interceptors.response.use(
           break;
 
         case 404:
-          error.message = "啊哦,页面丢失了...";
+          error.message = "啊哦,接口404...";
           break;
 
         case 405:
@@ -107,35 +107,37 @@ axios.interceptors.response.use(
  * @param pms  Object 请求参数
  * +++++++++++++++++++++++++++++++++++
  * */
-export async function ajax(type = 'get', url, pms) {
-  try {
-    store.commit("SET_LOADING", true);//打开loading
-    let resData = await axios({
-      url: url,
-      method: type,
-      data: pms,
-      /*取消请求，如果有页面需要用到取消当前请求，则直接调用window.cancelRequire方法*/
-      cancelToken: new CancelToken(c => {
-        window.cancelRequire = c;
-      })
-    });
+export function ajax(type = 'get', url, pms) {
+  return new Promise(async(resolve, reject) => {
+    try {
+      store.commit("SET_LOADING", true);//打开loading
+      let resData = await axios({
+        url: url,
+        method: type,
+        data: pms,
+        /*取消请求，如果有页面需要用到取消当前请求，则直接调用window.cancelRequire方法*/
+        cancelToken: new CancelToken(c => {
+          window.cancelRequire = c;
+        })
+      });
 
-    /*服务端异常信息验证*/
-    if (typeof resData === "string") throw resData;
-    if (!isJson(resData)) throw "系统正在维护,请稍后再试!";
-    if (resData["_code"] !== '99999') throw resData["_msg"];
-    store.commit("SET_LOADING", false);
+      /*服务端异常信息验证*/
+      if (!isJson(resData)) throw "系统正在维护,请稍后再试!";
+      if (resData["_code"] !== '99999') throw resData["_msg"];
+      store.commit("SET_LOADING", false);
 
-    /*抛出data*/
-    return Promise.resolve(resData["_result"]);
-  } catch (e) {
-    /*服务端异常信息处理*/
-    store.commit("SET_LOADING", false);
-    let error = e;
-    if (typeof e !== "string") error = e.toString();
-    store.commit('SET_ERR_DIALOG', {show: true, txt: error});
-    return false;
-  }
+      /*抛出data*/
+      resolve(resData["_result"]);
+    } catch (e) {
+      /*服务端异常信息处理*/
+      store.commit("SET_LOADING", false);
+      let error = e;
+      if (typeof e !== "string") error = e.toString();
+      store.commit('SET_ERR_DIALOG', {show: true, txt: error});
+      reject(false);
+    }
+  });
+
 }
 
 export {baseUrl};

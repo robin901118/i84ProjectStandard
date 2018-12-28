@@ -22,6 +22,12 @@
         </section>
         <!--列表结束-->
 
+
+        <div class="boxbox">
+            11月3日在班主任樊老师和家长志愿者的带领下，群力兆麟小学三年二班全班同学来到东北林业大学森林博物馆进行研学活动。此次老师和家长志愿者的带领下，群力兆麟小学三年二班全班同学来到东北林业大学森林博物馆进行研学活动。此次11月3日在班主任樊老师和家长志愿者的带领下，群力兆麟小学三年二班全班同学来到东北林业大学森林博物馆进行研学活动。此次老师和家长志愿者的带领下，群力兆麟小学三年二班全班同学来到东北林业大学森林博物馆进行研学活动。此次11月3日在班主任樊老师和家长志愿者的带领下，群力兆麟小学三年二班全班同学来到东北林业大学森林博物馆进行研学活动。此次老师和家长志愿者的带领下，群力兆麟小学三年二班全班同学来到东北林业大学森林博物馆进行研学活动。此次
+        </div>
+
+
         <!--页脚开始-->
         <footer flex="cross:center main:center">
             页脚
@@ -31,6 +37,9 @@
 </template>
 
 <script>
+
+    import {getData} from '../assets/js/api';
+
     export default {
     name: 'home',
     data() {
@@ -40,12 +49,33 @@
       }
     },
     methods:{},
-    created() {
+    async created() {
       let arr = [];
       for (let i = 0; i < 10; i++) {
         arr.push(i);
       }
       this.listData=[...arr];
+
+      try{
+        let res = await getData();
+        console.log('成功');
+        console.log(res);
+
+
+        /*继续执行语句*/
+
+
+      }catch (e) {
+
+        /*有错误，直接return出去*/
+
+
+        console.log('失败');
+        return false;
+      }
+
+
+
     }
   }
 </script>

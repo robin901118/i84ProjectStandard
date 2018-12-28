@@ -20,3 +20,11 @@ footer{
   border-bottom: 1px solid gray;
   &:last-child{border-bottom: none;}
 }
+
+.boxbox{
+  width: 200px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
