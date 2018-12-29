@@ -1,5 +1,6 @@
 const path = require('path');
 const baseUrl = process.env.NODE_ENV === 'production' ? './' : '/';
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   /*build的时候打包成相对路径，dev时用绝对路径*/
@@ -31,13 +32,32 @@ module.exports = {
     }
   },
   configureWebpack: config => {
-    return {
-      /*以下控件通过CDN引入*/
-      externals:{
-        'vue': 'Vue',
-        'vue-router': 'VueRouter',
-        'moment': 'moment'
-      }
+
+    let obj = {};
+
+    /*以下控件通过CDN引入*/
+    obj.externals = {
+      'vue': 'Vue',
+      'vue-router': 'VueRouter',
+      'moment': 'moment'
+    };
+
+    /*生产环境下禁止console.log*/
+    if (process.env.NODE_ENV === 'production') {
+      obj.plugins = [
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            compress: {
+              warnings: false,
+              drop_debugger: true,
+              drop_console: true,
+            },
+          },
+          sourceMap: false,
+          parallel: true,
+        })
+      ]
     }
+    return obj
   }
 };
