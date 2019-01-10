@@ -24,7 +24,6 @@
     props: ['imageFile'],
     data() {
       return {
-        screenOk:true,
         imageBase64:'',//图片的base64值
         degree: 0,//原图片旋转角度
         windowWidth: 0,//屏幕的宽度
@@ -243,7 +242,7 @@
           next(canvas.toDataURL("image/jpeg"));
         }
       },
-      
+
       /**
        * +++++++++++++++++++++++++++++++++++++
        * 取消编辑
