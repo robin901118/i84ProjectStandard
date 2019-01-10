@@ -10,7 +10,6 @@ Vue.use(VueRouter);
  * */
 const Home = resolve => require(['@/views/index.vue'], resolve);
 const notFind = resolve => require(['@/views/404.vue'], resolve);
-const imgEditor = resolve => require(['@/views/imgEditor.vue'], resolve);
 
 
 /**
@@ -31,12 +30,6 @@ const router = new VueRouter({
       name: 'home',
       component: Home,
       meta: {requireAuth: false, title: '主页', index: 1}
-    },
-    {
-      path: '/imgEditor',
-      name: 'imgEditor',
-      component: imgEditor,
-      meta: {requireAuth: false, title: '修改头像', index: 2}
     }
   ]
 });

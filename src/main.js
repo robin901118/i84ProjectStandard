@@ -28,7 +28,7 @@ Vue.use(VueLazyImageLoading);//图片懒加载
  * +++++++++++++++++++++++++++++++++++
  * */
 import vconsole from 'vconsole';
-// new vconsole();
+new vconsole();
 
 
 /**

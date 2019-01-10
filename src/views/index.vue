@@ -1,66 +1,119 @@
 <template>
     <div class="home">
-        <!--页头开始-->
-        <header flex="cross:center main:center dir:top">
-            <p>页头</p>
-            <p>页头</p>
-        </header>
-        <!--页头结束-->
+        <myHeader></myHeader>
+        <ul class="list border-top-1px">
+            <li class="border-bottom-1px" flex="main:justify cross:center">
+                <span>头像</span>
+                <input type="file"
+                       id="headFile"
+                       @change="editorImage"
+                       accept="image/*"
+                       ref="file"/>
+                <label class="headImg"
+                       :style="{backgroundImage:'url('+cropImgSrc+')'}"
+                       for="headFile"></label>
+            </li>
+            <li class="border-bottom-1px" flex="main:justify cross:center">
+                <span>真实姓名</span>
+                <span class="value">周生生</span>
+            </li>
+            <li class="border-bottom-1px" flex="main:justify cross:center">
+                <span>性别</span>
+                <span class="value">男</span>
+            </li>
+            <li class="border-bottom-1px" flex="main:justify cross:center">
+                <span>联系电话</span>
+                <span class="value">13888888888</span>
+            </li>
+            <li flex="main:justify cross:center">
+                <span>常驻地址</span>
+                <span class="value">南山区华侨城</span>
+            </li>
+        </ul>
 
-        <!--列表开始-->
-        <section>
-            <cube-scroll ref="scroll" :data="listData">
-                <ul class="list">
-                    <li v-for="item in listData">
-                        <p>我是青蛙</p>
-                        <p>
-                            <span style=" letter-spacing: 2em; margin-right: -2em;">青蛙</span>:哈哈哈哈
-                        </p>
-                    </li>
-                </ul>
-            </cube-scroll>
-        </section>
-        <!--列表结束-->
 
-        <!--页脚开始-->
-        <footer flex="cross:center main:center">
-            页脚
-        </footer>
-        <!--页脚结束-->
+        <!--头像编辑器 开始-->
+        <imageEditor v-if="headImage"
+                     :imageFile="headImage"
+                     v-on:editorResult="editorResult($event)">
+        </imageEditor>
+        <!--头像编辑器 结束-->
     </div>
 </template>
 
 <script>
+  import myHeader from '../components/header/header';
+  import imageEditor from '../components/imageEditor/imageEditor';
 
-    import {getData} from '../assets/js/api';
-
-    export default {
+  export default {
     name: 'home',
     data() {
       return {
-        listData: [],
-        actionSheet:null
+        orientation: null,//图片元信息
+        headImage: null,
+        cropImgSrc:"",//裁剪好的图片
       }
     },
-    methods:{},
+    components: {myHeader, imageEditor},
+    methods: {
+      /**
+       * 上传头像
+       * */
+      editorImage() {
+        let files = this.$refs.file.files[0];
+        if(!files) return;//在结束的时候清除file的value
+        /*控制图片上传大小不超过1MB*/
+        if (files.size > 8388608) {
+          this.$store.commit('SET_TOAST', {show: true, txt: '图片不能超过1MB大小'});
+          return false;
+        }
+
+        //因为安卓手机调用摄像头拍照会有一个旋转屏幕的效果，
+        //为了保证编辑界面不出现bug，建议加个loading延迟一下
+        this.$store.commit('SET_LOADING',true);
+        setTimeout(()=>{
+          this.headImage = files;
+          this.$store.commit('SET_LOADING',false);
+        },2000);
+
+      },
+
+
+      /**
+       * +++++++++++++++++++++++++++++++++++++
+       * 编辑结束的回调
+       * @param data 编辑后的base64值，如果为空则表示点击了取消
+       * +++++++++++++++++++++++++++++++++++++
+       * */
+      editorResult(data){
+        this.headImage = '';
+        this.$refs.file.value = '';
+        if(!data) return;//点击了取消
+
+        //执行上传.....
+        this.cropImgSrc = data;
+      }
+
+
+    },
     async created() {
-      let arr = [];
-      for (let i = 0; i < 10; i++) {
-        arr.push(i);
-      }
-      this.listData=[...arr];
-
-      try{
-        let res = await getData();
-        console.log('成功');
-        console.log(res);
-        /*继续执行语句*/
-
-      }catch (e) {
-        /*有错误，直接return出去*/
-        console.log('失败');
-        return false;
-      }
+      // let arr = [];
+      // for (let i = 0; i < 10; i++) {
+      //   arr.push(i);
+      // }
+      // this.listData=[...arr];
+      //
+      // try{
+      //   let res = await getData();
+      //   console.log('成功');
+      //   console.log(res);
+      //   /*继续执行语句*/
+      //
+      // }catch (e) {
+      //   /*有错误，直接return出去*/
+      //   console.log('失败');
+      //   return false;
+      // }
 
     }
   }
