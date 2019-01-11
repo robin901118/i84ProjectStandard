@@ -41,7 +41,7 @@
         translateY: 0,//平移Y轴
         canvas: null,//canvas
         canvasMask: null,//canvas-mask
-        canvasResult: null,//裁切图片canvas
+        canvasResult: null//裁切图片canvas
       }
     },
 
@@ -50,7 +50,9 @@
       * 编辑之前做一些操作
       * */
       beforeEditor(){
-        let files = this.imageFile,self = this;
+        let files = this.imageFile,
+                    self = this;
+
         /*用EXIF获取图片元信息*/
         EXIF.getData(files, function () {
           self.orientation = EXIF.getTag(this, 'Orientation');
@@ -272,7 +274,14 @@
     },
 
     mounted() {
-      this.beforeEditor();
+      //因为安卓手机调用摄像头拍照会有一个旋转屏幕的效果，
+      //为了保证编辑界面不出现bug，建议加个loading延迟一下
+      this.$store.commit('SET_LOADING',true);
+      setTimeout(()=>{
+        this.beforeEditor();
+        this.$store.commit('SET_LOADING',false);
+      },2000);
+
     }
   }
 </script>
@@ -285,7 +294,7 @@
         top: 0;
         right: 0;
         bottom:0;
-        z-index: 10;
+        z-index: 2;
         color: white;
     }
 

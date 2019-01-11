@@ -68,13 +68,7 @@
           return false;
         }
 
-        //因为安卓手机调用摄像头拍照会有一个旋转屏幕的效果，
-        //为了保证编辑界面不出现bug，建议加个loading延迟一下
-        this.$store.commit('SET_LOADING',true);
-        setTimeout(()=>{
-          this.headImage = files;
-          this.$store.commit('SET_LOADING',false);
-        },2000);
+        this.headImage = files;
 
       },
 
