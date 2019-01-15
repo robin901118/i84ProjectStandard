@@ -13,7 +13,9 @@
                        :style="{backgroundImage:'url('+cropImgSrc+')'}"
                        for="headFile"></label>
             </li>
-            <li class="border-bottom-1px" flex="main:justify cross:center">
+            <li class="border-bottom-1px"
+                flex="main:justify cross:center"
+                @click="changeNickName">
                 <span>真实姓名</span>
                 <span class="value">周生生</span>
             </li>
@@ -86,6 +88,27 @@
 
         //执行上传.....
         this.cropImgSrc = data;
+      },
+
+      /**
+      * 修改昵称
+      * */
+      changeNickName(){
+        this.dialog = this.$createDialog({
+          type: 'prompt',
+          title: '我是标题',
+          prompt: {
+            value: '',
+            placeholder: '请输入'
+          },
+          onConfirm: (e, promptValue) => {
+            this.$createToast({
+              type: 'warn',
+              time: 1000,
+              txt: `Prompt value: ${promptValue || ''}`
+            }).show()
+          }
+        }).show();
       }
 
 
