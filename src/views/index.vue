@@ -37,15 +37,13 @@
         <!--头像编辑器 开始-->
         <imageEditor v-if="headImage"
                      :imageFile="headImage"
-                     v-on:editorResult="editorResult($event)">
-        </imageEditor>
+                     v-on:editorResult="editorResult($event)"/>
         <!--头像编辑器 结束-->
     </div>
 </template>
 
 <script>
   import myHeader from '../components/header/header';
-  import imageEditor from '../components/imageEditor/imageEditor';
 
   export default {
     name: 'home',
@@ -56,7 +54,7 @@
         cropImgSrc:"",//裁剪好的图片
       }
     },
-    components: {myHeader, imageEditor},
+    components: {myHeader},
     methods: {
       /**
        * 上传头像

@@ -12,6 +12,7 @@
     "cube-ui": "~1.12.1",
     "exif-js": "^2.3.0",
     "good-storage": "^1.1.0",
+    "lb-image-editor": "^0.1.1",
     "moment": "^2.23.0",
     "vconsole": "^3.2.0",
     "vue": "^2.5.21",

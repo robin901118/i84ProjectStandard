@@ -3825,6 +3825,13 @@ launch-editor@^2.2.1:
     chalk "^2.3.0"
     shell-quote "^1.6.1"
 
+lb-image-editor@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/lb-image-editor/-/lb-image-editor-0.1.1.tgz#5fc3b284e1d0008871720ea40d0280e3b5219721"
+  dependencies:
+    exif-js "^2.3.0"
+    vue "^2.5.17"
+
 lcid@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/lcid/-/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"
@@ -6600,7 +6607,7 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.8.1.tgz#e2ec4f42d16b6c712e61899c6b20bcdb1df128ca"
 
-vue@^2.5.21:
+vue@^2.5.17, vue@^2.5.21:
   version "2.5.22"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.22.tgz#3bf88041af08b8539c37b268b70ca79245e9cc30"
 

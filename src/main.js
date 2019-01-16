@@ -18,8 +18,10 @@ import VueLazyImageLoading from 'vue-lazy-image-loading'
  * +++++++++++++++++++++++++++++++++++
  * */
 import './cube-ui'
+import lbImageEditor from 'lb-image-editor';
 import {decrypt, encrypt} from './assets/js/common'
 Vue.use(VueLazyImageLoading);//图片懒加载
+Vue.use(lbImageEditor);//图片编辑器
 
 
 /**
