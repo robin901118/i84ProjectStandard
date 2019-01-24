@@ -4,7 +4,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   /*build的时候打包成相对路径，dev时用绝对路径*/
-  baseUrl: baseUrl,
+  publicPath: baseUrl,
   productionSourceMap: false,
   css: {
     loaderOptions: {
@@ -51,7 +51,7 @@ module.exports = {
               warnings: false,
               drop_debugger: true,
               drop_console: true,
-            },
+            },baseUrl
           },
           sourceMap: false,
           parallel: true,
@@ -60,4 +60,7 @@ module.exports = {
     }
     return obj
   }
+
+
+
 };

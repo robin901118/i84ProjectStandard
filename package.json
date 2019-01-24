@@ -1,6 +1,6 @@
 {
   "name": "prjstandard",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,16 +9,16 @@
   "dependencies": {
     "axios": "^0.18.0",
     "crypto-js": "^3.1.9-1",
-    "cube-ui": "~1.12.1",
+    "cube-ui": "~1.12.8",
     "exif-js": "^2.3.0",
     "good-storage": "^1.1.0",
     "lb-image-editor": "^0.1.1",
-    "moment": "^2.23.0",
-    "vconsole": "^3.2.0",
+    "moment": "^2.24.0",
+    "vconsole": "^3.2.2",
     "vue": "^2.5.21",
     "vue-lazy-image-loading": "^1.1.5",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vue-router": "^3.0.2",
+    "vuex": "^3.1.0"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
