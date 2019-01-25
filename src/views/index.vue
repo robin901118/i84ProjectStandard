@@ -112,24 +112,44 @@
 
     },
     async created() {
-      // let arr = [];
-      // for (let i = 0; i < 10; i++) {
-      //   arr.push(i);
-      // }
-      // this.listData=[...arr];
-      //
-      // try{
-      //   let res = await getData();
-      //   console.log('成功');
-      //   console.log(res);
-      //   /*继续执行语句*/
-      //
-      // }catch (e) {
-      //   /*有错误，直接return出去*/
-      //   console.log('失败');
-      //   return false;
-      // }
+      /*HTTP请求实例*/
+      try{
+        // 单个请求实例
+        // let result = await Http.ajax({
+        //   url:'/api',
+        //   method:'post',
+        //   data:{
+        //     action:"scan",
+        //     groupNo:"tttt"
+        //   }
+        // });
+        //
+        // console.log('页面返回',result)
 
+
+        //并发请求实例
+        let result = await Http.all({
+          requestArr:[
+            {
+              url:'/goodsData',
+              method:"post",
+              data:{pms:1}
+            },
+            {
+              url:"/search",
+              method:"post",
+              data:{index:2}
+            }
+          ]
+        });
+
+        console.log('并发请求成功',result);
+
+      }catch (e) {
+        //统一错误抛出处理
+        console.log('并发请求失败',e);
+        return false;
+      }
     }
   }
 </script>

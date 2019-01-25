@@ -1,146 +1,189 @@
 import axios from 'axios';
 import QS from 'qs';
-import {isJson} from "./common.js";
-import store from '../../store/'
+import store from '../../store'
 
-/*
-    'http://chentzc.i84.com.cn:8080';//测试 -陈天柱
-    "http://hongsjd.i84.com.cn:8085";  // 测试 -洪澍珺
-    "http://clife.ngrok.i84.com.cn";  // 测试
-    "http://tujfc.i84.com.cn:8080";//涂建飞
-  */
-const baseUrl = 'https://www.easy-mock.com/mock/5c3e891a285344e0eeb035/api';
+const baseUrl = 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall';
 const CancelToken = axios.CancelToken;
-axios.defaults.baseURL = baseUrl;
 
+class Http {
+  constructor(publicPath) {
+    this.$http = axios.create();
+    this.$http.defaults.baseURL = publicPath;
+    this.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    /*请求拦截*/
+    this.$http.interceptors.request.use(
+      config => {
+        if (config.method === 'post') {
+          config.data = QS.stringify(config.data);//序列化参数
+        }
+        return config;
+      },
+      error => {
+        return Promise.reject(error);
+      });
+  }
 
-/**
- * +++++++++++++++++++++++++++++++++++
- * 请求拦截
- * +++++++++++++++++++++++++++++++++++
- * */
-axios.interceptors.request.use(
-  config => {
-    /*post请求头*/
-    config.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-    if (config.method === 'post') {
-      /*在发送请求之前如果是post请求则序列化参数*/
-      config.data = QS.stringify(config.data);
-    }
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  });
-
-
-/**
- * +++++++++++++++++++++++++++++++++++
- * 响应拦截
- * +++++++++++++++++++++++++++++++++++
- * */
-axios.interceptors.response.use(
-  response => {
-    return response["data"];
-  },
-  /*服务器错误状态*/
-  error => {
-    if (error && error.response) {
+  /**
+   * 通用错误数据处理
+   * */
+  publicError(error,loading){
+    /*关闭loading*/
+    if (loading) store.commit("SET_LOADING", false);
+    /*返回错误信息*/
+    let message = '连接服务器失败';
+    if (error.response) {
       switch (error.response.status) {
         case 400:
-          error.message = '错误请求';
+          message = '错误请求';
           break;
 
         case 403:
-          error.message = '拒绝访问';
+          message = '拒绝访问';
           break;
 
         case 404:
-          error.message = "啊哦,接口404...";
+          message = "啊哦,接口404...";
           break;
 
         case 405:
-          error.message = '请求方法未允许';
+          message = '请求方法未允许';
           break;
 
         case 408:
-          error.message = '请求超时';
+          message = '请求超时';
           break;
 
         case 500:
-          error.message = '服务器端出错';
+          message = '服务器端出错';
           break;
 
         case 501:
-          error.message = '网络未实现';
+          message = '网络未实现';
           break;
 
         case 502:
-          error.message = '网络错误';
+          message = '网络错误';
           break;
 
         case 503:
-          error.message = '服务不可用';
+          message = '服务不可用';
           break;
 
         case 504:
-          error.message = '网络超时';
+          message = '网络超时';
           break;
 
         case 505:
-          error.message = 'http版本不支持该请求';
+          message = 'http版本不支持该请求';
           break;
 
         default:
-          error.message = `连接错误${error.response.status}`;
+          message = `错误代码:${error.response.status}`;
       }
-      return Promise.reject(error.message);
     }
+    store.commit('SET_ERR_DIALOG', {show: true, txt: message});
   }
-);
 
-/**
- * +++++++++++++++++++++++++++++++++++
- * 通用ajax请求封装函数
- * @param type String 请求方式
- * @param url  String API地址
- * @param pms  Object 请求参数
- * +++++++++++++++++++++++++++++++++++
- * */
-export function ajax(type = 'get', url, pms) {
-  return new Promise(async(resolve, reject) => {
-    try {
-      store.commit("SET_LOADING", true);//打开loading
-      let resData = await axios({
+  /**
+   * +++++++++++++++++++++++++++++++++++
+   * 通用ajax请求封装方法
+   * @param url 请求链接
+   * @param data 请求参数
+   * @param loading 是否需要loading default true
+   * @param method 请求方式 default 'get'
+   * +++++++++++++++++++++++++++++++++++
+   * */
+  ajax({url, data, loading = true, method = 'get'}) {
+    return new Promise((resolve, reject) => {
+      //打开loading
+      if (loading) store.commit("SET_LOADING", true);
+
+      //开始请求
+      this.$http({
         url: url,
-        method: type,
-        data: pms,
+        method: method,
+        data: data,
         /*取消请求，如果有页面需要用到取消当前请求，则直接调用window.cancelRequire方法*/
         cancelToken: new CancelToken(c => {
           window.cancelRequire = c;
         })
-      });
+      })
 
-      /*服务端异常信息验证*/
-      if (!isJson(resData)) throw "系统正在维护,请稍后再试!";
-      if (resData["_code"] !== '99999') throw resData["_msg"];
-      store.commit("SET_LOADING", false);
+      /*正确返回*/
+        .then(res => {
+          /*关闭loading*/
+          if (loading) store.commit("SET_LOADING", false);
 
-      /*抛出data*/
-      resolve(resData["_result"]);
-    } catch (e) {
-      /*服务端异常信息处理*/
-      store.commit("SET_LOADING", false);
-      let error = e;
-      if (typeof e !== "string") error = e.toString();
-      store.commit('SET_ERR_DIALOG', {show: true, txt: error});
-      reject(false);
-    }
-  });
+          /*服务端错误返回*/
+          if (res['data']["_code"] !== '99999') {
+            store.commit('SET_ERR_DIALOG', {show: true, txt: res['data']['_msg']});
+            reject(false);
+          } else {
+            resolve(res['data']['_result']);
+          }
+        })
 
+        /*错误处理*/
+        .catch(error => {
+          this.publicError(error);
+          reject(false);
+        })
+    });
+  }
+
+  /**
+   * +++++++++++++++++++++++++++++++++++
+   * 通用并发请求封装方法
+   * @param requestArr 并发请求数组
+   * @param loading 是否需要loading default true
+   * +++++++++++++++++++++++++++++++++++
+   * */
+  all({requestArr, loading = true}) {
+    //打开loading
+    if (loading) store.commit("SET_LOADING", true);
+
+    //处理数据
+    let requests = requestArr.map(item => {
+      return this.$http(item)
+    });
+
+    //返回数据
+    return new Promise((resolve, reject) => {
+      Promise.all(requests)
+        .then(res => {
+          let resultArr = [],massage="";
+          //循环判断是否有错误码
+          for (let i = 0, len = res.length; i < len; i++) {
+            if(res[i]['data']['_code'] !== '99999'){
+              massage = res[i]['data']['_msg'];
+              break;
+            }else{
+              resultArr.push(res[i]['data']['_result'] || "success");
+            }
+          }
+          if (loading) store.commit("SET_LOADING", false);
+
+          if(massage){
+            //抛出错误
+            store.commit('SET_ERR_DIALOG', {show: true, txt: massage});
+            reject(false);
+          }else{
+            //抛出数据
+            resolve(resultArr);
+          }
+        })
+        .catch(error => {
+          this.publicError(error,loading);
+          reject(false);
+        });
+    })
+  }
 }
 
 export {baseUrl};
+
+export default new Http(baseUrl);
+
 
 
 
