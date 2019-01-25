@@ -38,8 +38,7 @@ module.exports = {
     /*以下控件通过CDN引入*/
     obj.externals = {
       'vue': 'Vue',
-      'vue-router': 'VueRouter',
-      'moment': 'moment'
+      'vue-router': 'VueRouter'
     };
 
     /*生产环境下禁止console.log*/

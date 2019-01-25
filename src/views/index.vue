@@ -128,7 +128,7 @@
 
 
         //并发请求实例
-        let result = await Http.all({
+        let result = await this.$http.all({
           requestArr:[
             {
               url:'/goodsData',
@@ -144,6 +144,8 @@
         });
 
         console.log('并发请求成功',result);
+
+        console.log(this.$day('2018-10-10 15:24').format('YYYY mm:ss'));
 
       }catch (e) {
         //统一错误抛出处理
