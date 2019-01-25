@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <myHeader></myHeader>
-        <ul class="list border-top-1px">
+        <ul class="list border-top-1px" style="padding-bottom: 10vh">
             <li class="border-bottom-1px" flex="main:justify cross:center">
                 <span>头像</span>
                 <input type="file"
@@ -32,6 +32,8 @@
                 <span class="value">南山区华侨城</span>
             </li>
         </ul>
+
+        <cube-button :primary="true" @click="keepAlive">keep-alive</cube-button>
 
 
         <!--头像编辑器 开始-->
@@ -107,15 +109,23 @@
             }).show()
           }
         }).show();
+      },
+
+      /**
+      * 跳转keepAlive
+      * */
+      keepAlive(){
+        this.$router.push('/keepAlive');
       }
 
 
     },
     async created() {
+      console.log('index');
       /*HTTP请求实例*/
       try{
         // 单个请求实例
-        // let result = await Http.ajax({
+        // let result = await this.$http.ajax({
         //   url:'/api',
         //   method:'post',
         //   data:{
@@ -128,7 +138,7 @@
 
 
         //并发请求实例
-        let result = await Http.all({
+        let result = await this.$http.all({
           requestArr:[
             {
               url:'/goodsData',
@@ -144,6 +154,8 @@
         });
 
         console.log('并发请求成功',result);
+
+        console.log(this.$day('2018-10-10 15:24').format('YYYY mm:ss'));
 
       }catch (e) {
         //统一错误抛出处理

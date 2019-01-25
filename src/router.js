@@ -10,6 +10,8 @@ Vue.use(VueRouter);
  * */
 const Home = resolve => require(['@/views/index.vue'], resolve);
 const notFind = resolve => require(['@/views/404.vue'], resolve);
+const keepAlive = resolve => require(['@/views/keepAlive.vue'], resolve);
+const nextPage = resolve => require(['@/views/nextPage.vue'], resolve);
 
 
 /**
@@ -29,7 +31,19 @@ const router = new VueRouter({
       path: '/',
       name: 'home',
       component: Home,
-      meta: {requireAuth: false, title: '主页', index: 1}
+      meta: {requireAuth: false, title: '请求/头像编辑', index: 1}
+    },
+    {
+      path: '/keepAlive',
+      name: 'keepAlive',
+      component: keepAlive,
+      meta: {requireAuth: false, title: 'keep-alive', index: 2,keepAlive:true}
+    },
+    {
+      path: '/nextPage',
+      name: 'nextPage',
+      component: nextPage,
+      meta: {requireAuth: false, title: 'nextPage', index: 3}
     }
   ]
 });
