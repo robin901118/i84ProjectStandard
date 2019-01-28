@@ -11,9 +11,6 @@
       goBack(){
         this.$router.go(-1);
       }
-    },
-    created(){
-      console.log('nextPage');
     }
   }
 </script>

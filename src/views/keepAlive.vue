@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <section v-for="(item,index) in inputGroup" :key="item">
+        <section v-for="(item,index) in inputGroup" :key="index">
             <div class="value">{{item.label}}</div>
             <cube-input v-model="item.value" :placeholder="item.placeholder"></cube-input>
         </section>
@@ -41,9 +41,6 @@
       gotoNextPage(){
         this.$router.push('/nextPage');
       }
-    },
-    created(){
-      console.log('keepAlive');
     }
   }
 </script>
