@@ -6641,10 +6641,13 @@ vue-loader@^15.4.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+<<<<<<< HEAD
 vue-navigation@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/vue-navigation/-/vue-navigation-1.1.4.tgz#be990190624647daa34b8cd525fad4fb6d472542"
 
+=======
+>>>>>>> cb5a7196f75377ccef28135c688f17043a0589bc
 vue-router@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.2.tgz#dedc67afe6c4e2bc25682c8b1c2a8c0d7c7e56be"
