@@ -1,10 +1,16 @@
 import axios from 'axios';
 import QS from 'qs';
-import store from '../../store'
-
-const baseUrl = 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall';
+import store from '../../store';
+import {baseUrl} from "./common";
 const CancelToken = axios.CancelToken;
 
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 封装的请求类
+ * ajax()  =>  单个请求方法
+ * all()  =>  并发请求方法
+ * +++++++++++++++++++++++++++++++++++
+ * */
 class Http {
   constructor(publicPath) {
     this.$http = axios.create();
@@ -20,13 +26,12 @@ class Http {
       },
       error => {
         return Promise.reject(error);
-      });
+      }
+    );
   }
 
-  /**
-   * 通用错误数据处理
-   * */
-  publicError(error,loading){
+  /**通用错误数据处理**/
+  publicError(error, loading) {
     /*关闭loading*/
     if (loading) store.commit("SET_LOADING", false);
     /*返回错误信息*/
@@ -86,7 +91,6 @@ class Http {
 
   /**
    * +++++++++++++++++++++++++++++++++++
-   * 通用ajax请求封装方法
    * @param url 请求链接
    * @param data 请求参数
    * @param loading 是否需要loading default true
@@ -133,7 +137,6 @@ class Http {
 
   /**
    * +++++++++++++++++++++++++++++++++++
-   * 通用并发请求封装方法
    * @param requestArr 并发请求数组
    * @param loading 是否需要loading default true
    * +++++++++++++++++++++++++++++++++++
@@ -151,36 +154,34 @@ class Http {
     return new Promise((resolve, reject) => {
       Promise.all(requests)
         .then(res => {
-          let resultArr = [],massage="";
+          let resultArr = [], massage = "";
           //循环判断是否有错误码
           for (let i = 0, len = res.length; i < len; i++) {
-            if(res[i]['data']['_code'] !== '99999'){
+            if (res[i]['data']['_code'] !== '99999') {
               massage = res[i]['data']['_msg'];
               break;
-            }else{
+            } else {
               resultArr.push(res[i]['data']['_result'] || "success");
             }
           }
           if (loading) store.commit("SET_LOADING", false);
 
-          if(massage){
+          if (massage) {
             //抛出错误
             store.commit('SET_ERR_DIALOG', {show: true, txt: massage});
             reject(false);
-          }else{
+          } else {
             //抛出数据
             resolve(resultArr);
           }
         })
         .catch(error => {
-          this.publicError(error,loading);
+          this.publicError(error, loading);
           reject(false);
         });
     })
   }
 }
-
-export {baseUrl};
 
 export default new Http(baseUrl);
 

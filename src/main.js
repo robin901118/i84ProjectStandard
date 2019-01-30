@@ -9,10 +9,10 @@ import router from './router'
 import store from './store/'
 import dayjs from 'dayjs'
 import Http from './assets/js/http';
+import Tool from './assets/js/tool';
 import goodStorage from 'good-storage'
 import VueLazyImageLoading from 'vue-lazy-image-loading'
 import Navigation from 'vue-navigation';
-
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -20,12 +20,10 @@ import Navigation from 'vue-navigation';
  * +++++++++++++++++++++++++++++++++++
  * */
 import './cube-ui'
-import lbImageEditor from 'lb-image-editor';
-import {decrypt, encrypt} from './assets/js/common'
+import  lbImageEditor from 'lb-image-editor'
 Vue.use(VueLazyImageLoading);//图片懒加载
 Vue.use(lbImageEditor);//图片编辑器
 Vue.use(Navigation,{router,store});
-
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -35,16 +33,14 @@ Vue.use(Navigation,{router,store});
 // import vconsole from 'vconsole';
 // new vconsole();
 
-
 /**
  * +++++++++++++++++++++++++++++++++++
  * 全局变量
  * +++++++++++++++++++++++++++++++++++
  * */
-Vue.prototype.$decrypt = decrypt;//解密
-Vue.prototype.$encrypt = encrypt;//加密
 Vue.prototype.$day = dayjs;//格式化时间
 Vue.prototype.$http = Http;//封装好的请求
+Vue.prototype.$tool = Tool;//常用的工具库
 Vue.prototype.$storage = goodStorage;//封装好的storage
 Vue.config.productionTip = false;
 

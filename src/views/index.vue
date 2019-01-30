@@ -117,11 +117,18 @@
       keepAlive(){
         this.$router.push('/keepAlive');
       }
-
-
     },
     async created() {
-      console.log('index');
+      /*工具实例*/
+      console.log(`当前的浏览器是${this.$tool.isWeixinOrAlipay()}`);
+
+      /*加密*/
+      console.log(`123456加密后为${this.$tool.encrypt('123456')}`);
+
+      /*解密*/
+      console.log(`0FA00516C7FA7350DED84B110C438F04解密后为${this.$tool.decrypt('0FA00516C7FA7350DED84B110C438F04')}`);
+
+
       /*HTTP请求实例*/
       try{
         // 单个请求实例
