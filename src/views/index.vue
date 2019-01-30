@@ -156,6 +156,10 @@
               url:"/search",
               method:"post",
               data:{index:2}
+            },
+            {
+              url:"/integral",
+              method:"post"
             }
           ]
         });

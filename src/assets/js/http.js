@@ -31,9 +31,7 @@ class Http {
   }
 
   /**通用错误数据处理**/
-  publicError(error, loading) {
-    /*关闭loading*/
-    if (loading) store.commit("SET_LOADING", false);
+  publicError(error) {
     /*返回错误信息*/
     let message = '连接服务器失败';
     if (error.response) {
@@ -129,6 +127,7 @@ class Http {
 
         /*错误处理*/
         .catch(error => {
+          if (loading) store.commit("SET_LOADING", false);
           this.publicError(error);
           reject(false);
         })
@@ -176,6 +175,7 @@ class Http {
           }
         })
         .catch(error => {
+          if (loading) store.commit("SET_LOADING", false);
           this.publicError(error, loading);
           reject(false);
         });
@@ -184,20 +184,3 @@ class Http {
 }
 
 export default new Http(baseUrl);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
