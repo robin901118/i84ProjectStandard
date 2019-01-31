@@ -1,7 +1,10 @@
 import axios from 'axios';
 import QS from 'qs';
 import store from '../../store';
+import {Dialog} from 'cube-ui';
 import {baseUrl} from "./common";
+import router from '../../router';
+
 const CancelToken = axios.CancelToken;
 
 /**
@@ -113,15 +116,30 @@ class Http {
 
       /*正确返回*/
         .then(res => {
-          /*关闭loading*/
+          /** 关闭loading **/
           if (loading) store.commit("SET_LOADING", false);
 
-          /*服务端错误返回*/
-          if (res['data']["_code"] !== '99999') {
-            store.commit('SET_ERR_DIALOG', {show: true, txt: res['data']['_msg']});
+          /** 状态判断 **/
+          if (res['data']["_code"] === '99999') {
+            //成功
+            resolve(res['data']['_result']);
+          } else if (res['data']['_code'] === "20001") {
+            //session失效
+            Dialog.$create({
+              type: 'alert',
+              content: message,
+              icon: 'cubeic-sad',
+              onConfirm: () => {
+                //执行登出操作
+                console.log('执行登出操作');
+                console.log('当前页面的路由：',router.history.current.fullPath);
+              }
+            }, false).show();
             reject(false);
           } else {
-            resolve(res['data']['_result']);
+            //其他错误
+            store.commit('SET_ERR_DIALOG', {show: true, txt: res['data']['_msg']});
+            reject(false);
           }
         })
 
@@ -144,6 +162,7 @@ class Http {
     //打开loading
     if (loading) store.commit("SET_LOADING", true);
 
+
     //处理数据
     let requests = requestArr.map(item => {
       return this.$http(item)
@@ -153,26 +172,35 @@ class Http {
     return new Promise((resolve, reject) => {
       Promise.all(requests)
         .then(res => {
-          let resultArr = [], massage = "";
-          //循环判断是否有错误码
+          let resultArr = [], flag = true;
+
+          /** 循环遍历请求状态 **/
           for (let i = 0, len = res.length; i < len; i++) {
-            if (res[i]['data']['_code'] !== '99999') {
-              massage = res[i]['data']['_msg'];
+            if (res[i]['data']['_code'] === '99999') {
+              //成功
+              resultArr.push(res[i]['data']['_result'] || "success");
+            } else if (res[i]['data']['_code'] === '20001') {
+              //未登录
+              Dialog.$create({
+                type: 'alert',
+                content: res[i]['data']['_msg'],
+                icon: 'cubeic-sad',
+                onConfirm: () => {
+                  //执行登出操作
+                  console.log('执行登出操作');
+                  console.log('当前页面的路由：',router.history.current.fullPath);
+                }
+              }, false).show();
+              flag = false;
               break;
             } else {
-              resultArr.push(res[i]['data']['_result'] || "success");
+              store.commit('SET_ERR_DIALOG', {show: true, txt: res[i]['data']['_msg']});
+              flag = false;
+              break;
             }
           }
-          if (loading) store.commit("SET_LOADING", false);
-
-          if (massage) {
-            //抛出错误
-            store.commit('SET_ERR_DIALOG', {show: true, txt: massage});
-            reject(false);
-          } else {
-            //抛出数据
-            resolve(resultArr);
-          }
+          if (loading) store.commit("SET_LOADING", false);//关闭loading
+          flag ? resolve(resultArr) : reject(false);//返回结果
         })
         .catch(error => {
           if (loading) store.commit("SET_LOADING", false);

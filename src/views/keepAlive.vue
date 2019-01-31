@@ -41,6 +41,23 @@
       gotoNextPage(){
         this.$router.push('/nextPage');
       }
+    },
+    async created(){
+      try {
+        //请求实例
+        let result = await this.$http.ajax({
+          url:'/goodsData',
+          method:"post",
+          data:{pms:1}
+        });
+
+        console.log('请求成功',result);
+      }catch (e) {
+      //统一错误抛出处理
+      console.log('请求失败',e);
+      return false;
+    }
+
     }
   }
 </script>
