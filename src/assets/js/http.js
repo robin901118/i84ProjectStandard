@@ -122,12 +122,12 @@ class Http {
           /** 状态判断 **/
           if (res['data']["_code"] === '99999') {
             //成功
-            resolve(res['data']['_result']);
+            resolve(res['data']['_result'] || "success");
           } else if (res['data']['_code'] === "20001") {
             //session失效
             Dialog.$create({
               type: 'alert',
-              content: message,
+              content: res['data']['_msg'] ,
               icon: 'cubeic-sad',
               onConfirm: () => {
                 //执行登出操作
