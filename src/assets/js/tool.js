@@ -88,5 +88,29 @@ class Tool {
     let decryptedStr = decrypt.toString(this.CryptoJS.enc.Utf8);
     return decryptedStr.toString();
   };
+
+  /**
+   *  打乱数组（数组随机排序）
+   *  @param array 数组
+   * */
+  derangedArray(array) {
+    for (let j, x, i = array.length; i; j = parseInt(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x) ;
+    return array;
+  };
+
+  /**
+   * 将一个数组分成几个同等长度的数组
+   * @param array [分割的原数组]
+   * @param size [每个子数组的长度]
+   */
+  sliceArray(array, size) {
+    let result = [];
+    for (let x = 0; x < Math.ceil(array.length / size); x++) {
+      let start = x * size;
+      let end = start + size;
+      result.push(array.slice(start, end));
+    }
+    return result;
+  }
 }
 export default new Tool();
