@@ -14,6 +14,7 @@
     "exif-js": "^2.3.0",
     "good-storage": "^1.1.0",
     "lb-image-editor": "^0.1.1",
+    "postcss-design-convert": "^1.1.3",
     "vconsole": "^3.2.2",
     "vue": "^2.5.21",
     "vue-lazy-image-loading": "^1.1.5",

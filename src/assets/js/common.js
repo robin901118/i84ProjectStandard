@@ -35,7 +35,7 @@ const dataURItoBlob = base64Data =>{
  * @returns {Function}
  * @constructor
  */
-export const Debounce = (fn, t) => {
+const Debounce = (fn, t) => {
     let delay = t || 500;
     let timer;
     console.log(fn)
@@ -59,7 +59,7 @@ export const Debounce = (fn, t) => {
  * @returns {Function}
  * @constructor
  */
-export const Throttle = (fn, t) => {
+const Throttle = (fn, t) => {
     let last;
     let timer;
     let interval = t || 500;
