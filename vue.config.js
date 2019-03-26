@@ -57,7 +57,7 @@ module.exports = {
               warnings: false,
               drop_debugger: true,
               drop_console: true,
-            },baseUrl
+            }
           },
           sourceMap: false,
           parallel: true,
