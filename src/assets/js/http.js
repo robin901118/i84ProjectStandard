@@ -94,11 +94,11 @@ class Http {
    * +++++++++++++++++++++++++++++++++++
    * @param url 请求链接
    * @param data 请求参数
-   * @param loading 是否需要loading default true
+   * @param loading 是否需要loading default false
    * @param method 请求方式 default 'get'
    * +++++++++++++++++++++++++++++++++++
    * */
-  ajax({url, data, loading = true, method = 'get'}) {
+  ajax({url = '/api', data, loading = false, method = 'get'}) {
     return new Promise((resolve, reject) => {
       //打开loading
       if (loading) store.commit("SET_LOADING", true);
@@ -155,10 +155,10 @@ class Http {
   /**
    * +++++++++++++++++++++++++++++++++++
    * @param requestArr 并发请求数组
-   * @param loading 是否需要loading default true
+   * @param loading 是否需要loading default false
    * +++++++++++++++++++++++++++++++++++
    * */
-  all({requestArr, loading = true}) {
+  all({requestArr, loading = false}) {
     //打开loading
     if (loading) store.commit("SET_LOADING", true);
 
