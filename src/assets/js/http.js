@@ -24,6 +24,8 @@ class Http {
       config => {
         if (config.method === 'post') {
           config.data = QS.stringify(config.data);//序列化参数
+        }else{
+          config.params = config.data;
         }
         return config;
       },
