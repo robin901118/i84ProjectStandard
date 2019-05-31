@@ -2,17 +2,18 @@
     <div id="app">
         <transition :name="transitionName">
             <navigation>
-                <router-view v-if="$route.meta.keepAlive" class="Router"></router-view>
+                <router-view v-if="$route.meta.keepAlive && isRouterReload" class="Router"></router-view>
             </navigation>
         </transition>
         <transition :name="transitionName">
-            <router-view v-if="!$route.meta.keepAlive" class="Router"></router-view>
+            <router-view v-if="!$route.meta.keepAlive && isRouterReload" class="Router"></router-view>
         </transition>
     </div>
 </template>
 
 <script>
   import {mapState} from "vuex";
+  import initHybridBridge from './assets/js/hybrid-bridge';
 
   export default {
     data() {
@@ -21,6 +22,7 @@
         loading: null,//loading单例组件
         diaLog: null,//弹窗单例组件
         toast: null,//吐司单例组件
+        isRouterReload:true,//是否显示router-view(用于刷新)
       }
     },
     computed: {
@@ -126,6 +128,23 @@
         }
       }
     },
+    methods:{
+      /**  刷新页面 ,这种刷新方式不会清除vuex中的状态 **/
+      reload(){
+        this.isRouterReload=false;
+        this.$nextTick(()=>{
+          this.isRouterReload = true;
+        })
+      }
+    },
+    provide(){
+      return {reload:this.reload}
+    },
+    mounted(){
+      /**  初始化hybrid-bridge **/
+      let deviceType = this.$tool.getQueryString('appType', window.location);
+      initHybridBridge.init(deviceType);
+    }
   }
 </script>
 <style lang="scss">
