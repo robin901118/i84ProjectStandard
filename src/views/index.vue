@@ -35,17 +35,21 @@
 
         <cube-button :primary="true" @click="keepAlive">keep-alive</cube-button>
 
-
         <!--头像编辑器 开始-->
         <imageEditor v-if="headImage"
                      :imageFile="headImage"
                      v-on:editorResult="editorResult($event)"/>
         <!--头像编辑器 结束-->
+
+        <!--图像懒加载-->
+        <lazy-img src="https://unsplash.it/879/200?image=10" aspect-ratio="1.5"/>
     </div>
 </template>
 
 <script>
   import myHeader from '../components/header/header';
+  import {isWeixinOrAlipay} from '../assets/js/common';
+  import EncAndDec from '../assets/js/EncAndDec';
 
   export default {
     name: 'home',
@@ -120,14 +124,17 @@
     },
     async created() {
       /*工具实例*/
-      console.log(`当前的浏览器是${this.$tool.isWeixinOrAlipay()}`);
+      console.log(`当前的浏览器是${isWeixinOrAlipay()}`);
 
       /*加密*/
-      console.log(`123456加密后为${this.$tool.encrypt('123456')}`);
+      console.log(`123456加密后为${EncAndDec.encrypt('123456')}`);
 
       /*解密*/
-      console.log(`0FA00516C7FA7350DED84B110C438F04解密后为${this.$tool.decrypt('0FA00516C7FA7350DED84B110C438F04')}`);
+      console.log(`0FA00516C7FA7350DED84B110C438F04解密后为${EncAndDec.decrypt('0FA00516C7FA7350DED84B110C438F04')}`);
 
+      /*lodash方法实例*/
+      const arr = [1,2,4,5,6,8,7,8,5,9,4,5,8,7,1,2,0,5];
+      console.log(this.$lodash.chunk(arr,5));//分割数组
 
       /*HTTP请求实例*/
       try{
