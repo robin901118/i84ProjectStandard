@@ -24,6 +24,8 @@ class Http {
       config => {
         if (config.method === 'post') {
           config.data = QS.stringify(config.data);//序列化参数
+        }else{
+          config.params = config.data;
         }
         return config;
       },
@@ -94,11 +96,11 @@ class Http {
    * +++++++++++++++++++++++++++++++++++
    * @param url 请求链接
    * @param data 请求参数
-   * @param loading 是否需要loading default true
+   * @param loading 是否需要loading
    * @param method 请求方式 default 'get'
    * +++++++++++++++++++++++++++++++++++
    * */
-  ajax({url, data, loading = true, method = 'get'}) {
+  ajax({url = '/api', data, loading, method = 'get'}) {
     return new Promise((resolve, reject) => {
       //打开loading
       if (loading) store.commit("SET_LOADING", true);
@@ -155,10 +157,10 @@ class Http {
   /**
    * +++++++++++++++++++++++++++++++++++
    * @param requestArr 并发请求数组
-   * @param loading 是否需要loading default true
+   * @param loading 是否需要loading default false
    * +++++++++++++++++++++++++++++++++++
    * */
-  all({requestArr, loading = true}) {
+  all({requestArr, loading}) {
     //打开loading
     if (loading) store.commit("SET_LOADING", true);
 
