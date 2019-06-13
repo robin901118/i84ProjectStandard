@@ -1,18 +1,20 @@
+
+
 /**
- * 全局baseUrl
- * */
+* 全局baseUrl
+* */
 const baseUrl = 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall';
 
 /**
  * blob转换
  * @param base64Data String
  * */
-const dataURItoBlob = base64Data => {
-  let byteString, mimeString, ia, byteLen;
+const dataURItoBlob = base64Data =>{
+  let byteString,mimeString,ia,byteLen;
 
-  if (base64Data.split(',')[0].indexOf('base64') >= 0) {
+  if (base64Data.split(',')[0].indexOf('base64') >= 0){
     byteString = atob(base64Data.split(',')[1]);
-  } else {
+  }else{
     // byteString = unescape(base64Data.split(',')[1]);
     byteString = decodeURI(base64Data.split(',')[1]);
   }
@@ -27,51 +29,61 @@ const dataURItoBlob = base64Data => {
 };
 
 /**
- * 判断微信或者支付宝
- * **/
-const isWeixinOrAlipay = () => {
-  let ua = window.navigator.userAgent.toLowerCase();
-  if (ua.indexOf('micromessenger') !== -1) {
-    return "weixin";
-  } else if (ua.indexOf('alipay') !== -1) {
-    return "alipay";
-  } else {
-    return 'other';
-  }
-};
-
-/**
- * 判断安卓或者ios
- * **/
-const getPhoneSystem = () => {
-  if (window.navigator.userAgent.indexOf('Android') > -1 || window.navigator.userAgent.indexOf('Linux') > -1) {
-    return "Android"
-  } else if (ua.indexOf('iPhone') > -1) {
-    return "iPhone"
-  } else {
-    return "other";
-  }
-};
-
-/**
- * 解析URL中的参数
- * @param parameterName 参数名称
- * @param currentUrl 当前url
- * @returns {*}
+ * 函数防抖 (只执行最后一次点击)
+ * @param fn
+ * @param delay
+ * @returns {Function}
+ * @constructor
  */
-const getQueryString = (parameterName, currentUrl,)=>{
-  let rs = new RegExp("(^|[&,?])" + parameterName + "=([^\&]*)(\&|$)", "gi").exec(currentUrl), tmp;
-  if (tmp = rs) return tmp[2];
-  return null;
+const Debounce = (fn, t) => {
+    let delay = t || 500;
+    let timer;
+    console.log(fn)
+    console.log(typeof fn)
+    return function () {
+        let args = arguments;
+        if(timer){
+            clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+            timer = null;
+            fn.apply(this, args);
+        }, delay);
+    }
 };
 
+/**
+ * 函数节流
+ * @param fn
+ * @param interval
+ * @returns {Function}
+ * @constructor
+ */
+const Throttle = (fn, t) => {
+    let last;
+    let timer;
+    let interval = t || 500;
+    return function () {
+        let args = arguments;
+        let now = +new Date();
+        if (last && now - last < interval) {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                last = now;
+                fn.apply(this, args);
+            }, interval);
+        } else {
+            last = now;
+            fn.apply(this, args);
+        }
+    }
+};
 
 export {
-  baseUrl,
   dataURItoBlob,
-  isWeixinOrAlipay,
-  getPhoneSystem,
-  getQueryString
+  baseUrl,
+  Debounce,
+  Throttle
 }
 
 
