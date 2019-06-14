@@ -1,0 +1,66 @@
+[flex]{
+  display: flex;
+  &>* {display: block}
+  &>[flex] {display: flex}
+}
+[flex~="dir:left"]{
+  flex-direction: row
+}
+[flex~="dir:right"]{
+  flex-direction: row-reverse
+}
+[flex~="dir:top"]{
+  flex-direction: column
+}
+[flex~="dir:bottom"]{
+  flex-direction: column-reverse
+}
+[flex~="main:left"]{
+  justify-content: flex-start
+}
+[flex~="main:right"]{
+  justify-content: flex-end
+}
+[flex~="main:justify"]{
+  justify-content: space-between
+}
+[flex~="main:center"] {
+  justify-content: center
+}
+[flex~="cross:top"] {
+  align-items: flex-start
+}
+[flex~="cross:bottom"] {
+  align-items: flex-end
+}
+[flex~="cross:center"] {
+  align-items: center
+}
+[flex~="cross:baseline"] {
+  align-items: baseline
+}
+[flex~="cross:stretch"] {
+  align-items: stretch
+}
+[flex~="box:mean"] > *, [flex~="box:first"] > *, [flex~="box:last"] > *, [flex~="box:justify"] > * {
+  width: 0;
+  height: auto;
+  flex-grow: 1;
+  flex-shrink: 1
+}
+[flex~="box:first"] > :first-child, [flex~="box:last"] > :last-child, [flex~="box:justify"] > :first-child, [flex~="box:justify"] > :last-child {
+  width: auto;
+  flex-grow: 0;
+  flex-shrink: 0
+}
+[flex~="dir:top"][flex~="box:mean"] > *, [flex~="dir:top"][flex~="box:first"] > *, [flex~="dir:top"][flex~="box:last"] > *, [flex~="dir:top"][flex~="box:justify"] > *, [flex~="dir:bottom"][flex~="box:mean"] > *, [flex~="dir:bottom"][flex~="box:first"] > *, [flex~="dir:bottom"][flex~="box:last"] > *, [flex~="dir:bottom"][flex~="box:justify"] > * {
+  width: auto;
+  height: 0;
+  flex-grow: 1;
+  flex-shrink: 1
+}
+[flex~="dir:top"][flex~="box:first"] > :first-child, [flex~="dir:top"][flex~="box:last"] > :last-child, [flex~="dir:top"][flex~="box:justify"] > :first-child, [flex~="dir:top"][flex~="box:justify"] > :last-child, [flex~="dir:bottom"][flex~="box:first"] > :first-child, [flex~="dir:bottom"][flex~="box:last"] > :last-child, [flex~="dir:bottom"][flex~="box:justify"] > :first-child [flex~="dir:bottom"][flex~="box:justify"] > :last-child {
+  height: auto;
+  flex-grow: 0;
+  flex-shrink: 0
+}

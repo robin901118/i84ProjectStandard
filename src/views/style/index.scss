@@ -1,0 +1,28 @@
+.home{
+  min-height: 100%;
+  background: #efefef;
+}
+.list{
+  margin-top: 10px;
+  background: white;
+  padding-left:15px;
+  font-size: 16px;
+  input{display: none;}
+  li{
+    min-height: 48px;
+    padding: 12px 15px 12px 0;
+  }
+}
+.headImg{
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: gray;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.value{
+  font-size: 14px;
+  color: gray;
+}
