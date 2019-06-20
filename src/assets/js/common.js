@@ -1,9 +1,4 @@
 /**
- * 全局baseUrl
- * */
-const baseUrl = 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall';
-
-/**
  * blob转换
  * @param base64Data String
  * */
@@ -67,7 +62,6 @@ const getQueryString = (parameterName, currentUrl,)=>{
 
 
 export {
-  baseUrl,
   dataURItoBlob,
   isWeixinOrAlipay,
   getPhoneSystem,

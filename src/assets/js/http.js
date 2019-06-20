@@ -2,7 +2,6 @@ import axios from 'axios';
 import QS from 'qs';
 import store from '../../store';
 import {Dialog} from 'cube-ui';
-import {baseUrl} from "./common";
 import router from '../../router';
 
 const CancelToken = axios.CancelToken;
@@ -24,14 +23,12 @@ class Http {
       config => {
         if (config.method === 'post') {
           config.data = QS.stringify(config.data);//序列化参数
-        }else{
+        } else {
           config.params = config.data;
         }
         return config;
       },
-      error => {
-        return Promise.reject(error);
-      }
+      error => Promise.reject(error)
     );
   }
 
@@ -39,55 +36,26 @@ class Http {
   publicError(error) {
     /*返回错误信息*/
     let message = '连接服务器失败';
+    console.log(error.response);
     if (error.response) {
-      switch (error.response.status) {
-        case 400:
-          message = '错误请求';
-          break;
+      const errorCode = error.response.status;
+      const errorCodeConfig = {
+        400: '错误请求',
+        403: '拒绝访问',
+        404: '啊哦,接口404...',
+        405: '请求方法未允许',
+        408: '请求超时',
+        500: '服务器端出错',
+        501: '网络未实现',
+        502: '网络错误',
+        503: '服务不可用',
+        504: '网络超时',
+        505: 'http版本不支持该请求'
+      };
 
-        case 403:
-          message = '拒绝访问';
-          break;
-
-        case 404:
-          message = "啊哦,接口404...";
-          break;
-
-        case 405:
-          message = '请求方法未允许';
-          break;
-
-        case 408:
-          message = '请求超时';
-          break;
-
-        case 500:
-          message = '服务器端出错';
-          break;
-
-        case 501:
-          message = '网络未实现';
-          break;
-
-        case 502:
-          message = '网络错误';
-          break;
-
-        case 503:
-          message = '服务不可用';
-          break;
-
-        case 504:
-          message = '网络超时';
-          break;
-
-        case 505:
-          message = 'http版本不支持该请求';
-          break;
-
-        default:
-          message = `错误代码:${error.response.status}`;
-      }
+      errorCodeConfig.hasOwnProperty(errorCode)
+        ? message = errorCodeConfig[errorCode]
+        : message = `错误代码:${errorCode}`;
     }
     store.commit('SET_ERR_DIALOG', {show: true, txt: message});
   }
@@ -103,7 +71,7 @@ class Http {
   ajax({url = '/api', data, loading, method = 'get'}) {
     return new Promise((resolve, reject) => {
       //打开loading
-      if (loading) store.commit("SET_LOADING", true);
+      loading && store.commit("SET_LOADING", true);
 
       //开始请求
       this.$http({
@@ -119,35 +87,23 @@ class Http {
       /*正确返回*/
         .then(res => {
           /** 关闭loading **/
-          if (loading) store.commit("SET_LOADING", false);
+          loading && store.commit("SET_LOADING", false);
 
           /** 状态判断 **/
           if (res['data']["_code"] === '99999') {
-            //成功
-            resolve(res['data']['_result'] || "success");
+            resolve(res['data']['_result'] || "success");//成功
           } else if (res['data']['_code'] === "20001") {
-            //session失效
-            Dialog.$create({
-              type: 'alert',
-              content: res['data']['_msg'] ,
-              icon: 'cubeic-sad',
-              onConfirm: () => {
-                //执行登出操作
-                console.log('执行登出操作');
-                console.log('当前页面的路由：',router.history.current.fullPath);
-              }
-            }, false).show();
+            this.logout(res['data']['_msg']);//session失效
             reject(false);
           } else {
-            //其他错误
-            store.commit('SET_ERR_DIALOG', {show: true, txt: res['data']['_msg']});
+            store.commit('SET_ERR_DIALOG', {show: true, txt: res['data']['_msg']});//其他错误
             reject(false);
           }
         })
 
         /*错误处理*/
         .catch(error => {
-          if (loading) store.commit("SET_LOADING", false);
+          loading && store.commit("SET_LOADING", false);
           this.publicError(error);
           reject(false);
         })
@@ -162,13 +118,10 @@ class Http {
    * */
   all({requestArr, loading}) {
     //打开loading
-    if (loading) store.commit("SET_LOADING", true);
-
+    loading && store.commit("SET_LOADING", true);
 
     //处理数据
-    let requests = requestArr.map(item => {
-      return this.$http(item)
-    });
+    let requests = requestArr.map(item => this.$http(item));
 
     //返回数据
     return new Promise((resolve, reject) => {
@@ -179,38 +132,44 @@ class Http {
           /** 循环遍历请求状态 **/
           for (let i = 0, len = res.length; i < len; i++) {
             if (res[i]['data']['_code'] === '99999') {
-              //成功
-              resultArr.push(res[i]['data']['_result'] || "success");
+              resultArr.push(res[i]['data']['_result'] || "success");//成功
             } else if (res[i]['data']['_code'] === '20001') {
-              //未登录
-              Dialog.$create({
-                type: 'alert',
-                content: res[i]['data']['_msg'],
-                icon: 'cubeic-sad',
-                onConfirm: () => {
-                  //执行登出操作
-                  console.log('执行登出操作');
-                  console.log('当前页面的路由：',router.history.current.fullPath);
-                }
-              }, false).show();
+              this.logout(res[i]['data']['_msg']);//未登录
               flag = false;
               break;
             } else {
-              store.commit('SET_ERR_DIALOG', {show: true, txt: res[i]['data']['_msg']});
+              store.commit('SET_ERR_DIALOG', {show: true, txt: res[i]['data']['_msg']});//其他错误
               flag = false;
               break;
             }
           }
-          if (loading) store.commit("SET_LOADING", false);//关闭loading
+          loading && store.commit("SET_LOADING", false);//关闭loading
           flag ? resolve(resultArr) : reject(false);//返回结果
         })
         .catch(error => {
-          if (loading) store.commit("SET_LOADING", false);
-          this.publicError(error, loading);
+          loading && store.commit("SET_LOADING", false);
+          this.publicError(error);
           reject(false);
         });
     })
   }
+
+  /**
+   * 登出
+   * **/
+  logout(content){
+    Dialog.$create({
+      type: 'alert',
+      content: content,
+      icon: 'cubeic-sad',
+      onConfirm: () => {
+        //执行登出操作
+        console.log('执行登出操作');
+        console.log('当前页面的路由：', router.history.current.fullPath);
+      }
+    }, false).show();
+  }
+
 }
 
-export default new Http(baseUrl);
+export default new Http(store.state.baseURL);
