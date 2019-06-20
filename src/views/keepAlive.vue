@@ -35,6 +35,11 @@
             placeholder:"大小要求"
           }
         },
+        urlParams:{
+          uname:"",
+          age:"",
+          sex:""
+        }
       }
     },
     methods:{
@@ -42,22 +47,12 @@
         this.$router.push('/nextPage');
       }
     },
-    async created(){
-      try {
-        //请求实例
-        let result = await this.$http.ajax({
-          url:'/goodsData',
-          method:"post",
-          data:{pms:1}
-        });
-
-        console.log('请求成功',result);
-      }catch (e) {
-      //统一错误抛出处理
-      console.log('请求失败',e);
-      return false;
-    }
-
+    created(){
+      //获取路由中的参数
+      this.urlParams = this.$route.query;
+      console.log(this.urlParams['uname']);
+      console.log(this.urlParams['age']);
+      console.log(this.urlParams['sex']);
     }
   }
 </script>

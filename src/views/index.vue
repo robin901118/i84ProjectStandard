@@ -58,6 +58,11 @@
         orientation: null,//图片元信息
         headImage: null,
         cropImgSrc:"",//裁剪好的图片
+        jumpParams:{
+          uname:"Lily",
+          age:18,
+          sex:"girl"
+        }
       }
     },
     components: {myHeader},
@@ -73,9 +78,7 @@
           this.$store.commit('SET_TOAST', {show: true, txt: '图片不能超过1MB大小'});
           return false;
         }
-
         this.headImage = files;
-
       },
 
 
@@ -119,38 +122,15 @@
       * 跳转keepAlive
       * */
       keepAlive(){
-        this.$router.push('/keepAlive');
+        this.$router.push({
+          name:"keepAlive",
+          query:this.jumpParams
+        });
       }
     },
     async created() {
-      /*工具实例*/
-      console.log(`当前的浏览器是${isWeixinOrAlipay()}`);
-
-      /*加密*/
-      console.log(`123456加密后为${EncAndDec.encrypt('123456')}`);
-
-      /*解密*/
-      console.log(`0FA00516C7FA7350DED84B110C438F04解密后为${EncAndDec.decrypt('0FA00516C7FA7350DED84B110C438F04')}`);
-
-      /*lodash方法实例*/
-      const arr = [1,2,4,5,6,8,7,8,5,9,4,5,8,7,1,2,0,5];
-      console.log(this.$lodash.chunk(arr,5));//分割数组
-
       /*HTTP请求实例*/
       try{
-        // 单个请求实例
-        // let result = await this.$http.ajax({
-        //   url:'/api',
-        //   method:'post',
-        //   data:{
-        //     action:"scan",
-        //     groupNo:"tttt"
-        //   }
-        // });
-        //
-        // console.log('页面返回',result)
-
-
         //并发请求实例
         let result = await this.$http.all({
           requestArr:[
@@ -170,11 +150,6 @@
             }
           ]
         });
-
-        console.log('并发请求成功',result);
-
-        console.log(this.$day('2018-10-10 15:24').format('YYYY mm:ss'));
-
       }catch (e) {
         //统一错误抛出处理
         console.log('并发请求失败',e);

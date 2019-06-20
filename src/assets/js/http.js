@@ -36,7 +36,6 @@ class Http {
   publicError(error) {
     /*返回错误信息*/
     let message = '连接服务器失败';
-    console.log(error.response);
     if (error.response) {
       const errorCode = error.response.status;
       const errorCodeConfig = {

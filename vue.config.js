@@ -65,8 +65,11 @@ module.exports = {
       ]
     }
     return obj
+  },
+  devServer: {
+    // setting host should not be necessary
+    // host: '0.0.0.0:8080'
+    public: '192.168.1.123:8080',
+    disableHostCheck: true
   }
-
-
-
 };
