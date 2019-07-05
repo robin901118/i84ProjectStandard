@@ -107,26 +107,16 @@
        * +++++++++++++++++++++++++++++++++++
        * */
       $route(to, from) {
-        if (to.meta.index > from.meta.index) {
-          this.transitionName = 'slide-left';
-        } else {
-          this.transitionName = 'slide-right';
-        }
+        to.meta.index > from.meta.index ? this.transitionName = 'slide-left' : this.transitionName = 'slide-right';
 
         /*关闭diaLog*/
-        if (this.diaLog) {
-          this.$store.commit('SET_ERR_DIALOG', {show: false});
-        }
+        this.diaLog && this.$store.commit('SET_ERR_DIALOG', {show: false});
 
         /*关闭吐司提示*/
-        if (this.toast) {
-          this.$store.commit('SET_TOAST', {show: false});
-        }
+        this.toast && this.$store.commit('SET_TOAST', {show: false});
 
         /*取消请求*/
-        if (window.cancelRequire) {
-          window.cancelRequire();
-        }
+        window.cancelRequire && window.cancelRequire();
       }
     },
     methods:{
