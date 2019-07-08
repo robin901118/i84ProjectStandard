@@ -1,7 +1,7 @@
 //正则验证库
 const validate = {
   //手机号码校验
-  phoneNumber:/^1[345789]\d{9}$/,
+  phoneNumber:/^1[3456789]\d{9}$/,
   //昵称校验
   nickName:/^[\u4E00-\u9FA5A-Za-z0-9_-]+$/,
   //校验QQ

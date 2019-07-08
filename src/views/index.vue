@@ -48,8 +48,6 @@
 
 <script>
   import myHeader from '../components/header/header';
-  import {isWeixinOrAlipay} from '../assets/js/common';
-  import EncAndDec from '../assets/js/EncAndDec';
 
   export default {
     name: 'home',

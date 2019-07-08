@@ -3,19 +3,19 @@
   background: #efefef;
 }
 .list{
-  margin-top: 10px;
+  margin-top: 20px;
   background: white;
-  padding-left:15px;
-  font-size: 16px;
+  padding-left:30px;
+  font-size: 32px;
   input{display: none;}
   li{
-    min-height: 48px;
-    padding: 12px 15px 12px 0;
+    min-height: 96px;
+    padding: 24px 30px 24px 0;
   }
 }
 .headImg{
-  height: 70px;
-  width: 70px;
+  height: 140px;
+  width: 140px;
   border-radius: 50%;
   background-color: gray;
   background-size: cover;
@@ -23,6 +23,6 @@
   background-position: center center;
 }
 .value{
-  font-size: 14px;
+  font-size: 28px;
   color: gray;
 }

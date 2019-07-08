@@ -14,10 +14,10 @@
 
 <style lang="scss" scoped>
     .header{
-        height: 45px;
+        height: 90px;
         background: #1c90db;
         color: white;
-        padding: 0 16px;
-        font-size: 20px;
+        padding: 0 32px;
+        font-size: 40px;
     }
 </style>

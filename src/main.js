@@ -12,7 +12,6 @@ import Http from './assets/js/http';
 import goodStorage from 'good-storage'
 import VueLazyImageLoading from 'vue-lazy-image-loading'
 import Navigation from 'vue-navigation';
-import lodash from 'lodash';
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -40,7 +39,6 @@ Vue.use(Navigation,{router,store});
  * */
 Vue.prototype.$day = dayjs;//格式化时间
 Vue.prototype.$http = Http;//封装好的请求
-Vue.prototype.$lodash = lodash;//lodash库
 Vue.prototype.$storage = goodStorage;//封装好的storage
 Vue.config.productionTip = false;
 
