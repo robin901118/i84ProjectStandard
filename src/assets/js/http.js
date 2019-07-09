@@ -3,7 +3,6 @@ import QS from 'qs';
 import store from '../../store';
 import {Dialog} from 'cube-ui';
 import router from '../../router';
-
 const CancelToken = axios.CancelToken;
 
 /**
@@ -18,7 +17,7 @@ class Http {
     this.$http = axios.create();
     this.$http.defaults.baseURL = publicPath;
     this.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    /*请求拦截*/
+    //请求拦截
     this.$http.interceptors.request.use(
       config => {
         if (config.method === 'post') {
@@ -32,9 +31,10 @@ class Http {
     );
   }
 
-  /**通用错误数据处理**/
+  /**
+   * 通用错误数据处理
+   **/
   publicError(error) {
-    /*返回错误信息*/
     let message = '连接服务器失败';
     if (error.response) {
       const errorCode = error.response.status;
@@ -77,27 +77,31 @@ class Http {
         url: url,
         method: method,
         data: data,
-        /*取消请求，如果有页面需要用到取消当前请求，则直接调用window.cancelRequire方法*/
-        cancelToken: new CancelToken(c => {
-          window.cancelRequire = c;
-        })
+        //取消请求，如果有页面需要用到取消当前请求，则直接调用window.cancelRequire方法
+        cancelToken: new CancelToken(c => window.cancelRequire = c)
       })
 
-      /*正确返回*/
+      //正确返回
         .then(res => {
-          /** 关闭loading **/
+          //关闭loading
           loading && store.commit("SET_LOADING", false);
 
-          /** 状态判断 **/
-          if (res['data']["_code"] === '99999') {
-            resolve(res['data']['_result'] || "success");//成功
-          } else if (res['data']['_code'] === "20001") {
-            this.logout(res['data']['_msg']);//session失效
-            reject(false);
-          } else {
-            store.commit('SET_ERR_DIALOG', {show: true, txt: res['data']['_msg']});//其他错误
-            reject(false);
+          //状态判断
+          switch (res['data']["_code"]) {
+            case '99999':
+              resolve(res['data']['_result'] || "success");//成功
+              break;
+
+            case '20001':
+              this.logout(res['data']['_msg']);//session失效
+              reject(false);
+              break;
+
+            default:
+              store.commit('SET_ERR_DIALOG', {show: true, txt: res['data']['_msg']});//其他错误
+              reject(false);
           }
+
         })
 
         /*错误处理*/
@@ -156,7 +160,7 @@ class Http {
   /**
    * 登出
    * **/
-  logout(content){
+  logout(content) {
     Dialog.$create({
       type: 'alert',
       content: content,
@@ -168,7 +172,6 @@ class Http {
       }
     }, false).show();
   }
-
 }
 
 export default new Http(store.state.baseURL);
