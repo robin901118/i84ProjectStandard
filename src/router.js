@@ -17,6 +17,9 @@ const nextPage = resolve => require(['@/views/nextPage.vue'], resolve);
 /**
  * +++++++++++++++++++++++++++++++++++
  * 路由配置
+ * meta--requireAuth (该页面是否需要登录后才可进)
+ * meta--title(页面标题)
+ * meta--index(页面层级，主要给页面切换效果使用)
  * +++++++++++++++++++++++++++++++++++
  * */
 const router = new VueRouter({

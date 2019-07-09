@@ -45,7 +45,6 @@
        * */
       loadingShow(nv) {
         if (nv) {
-          /*单例模式，参考cube-ui toast配置*/
           this.loading = this.$createToast({
             mask: true,//蒙层
             time: 0//设置为0时需要手动关闭
@@ -68,9 +67,7 @@
             mask: true,
             icon: this.errorDialogIcon,
             content: this.errorDialogTxt,
-            onConfirm: () => {
-              this.$store.commit('SET_ERR_DIALOG', {show: false});
-            }
+            onConfirm: () => this.$store.commit('SET_ERR_DIALOG', {show: false})
           }).show();
         } else {
           if (!this.diaLog) return;
@@ -90,9 +87,7 @@
             time: 3000,
             type: this.toastType,
             txt: this.toastTxt,
-            onTimeout: () => {
-              this.$store.commit('SET_TOAST', {show: false});
-            }
+            onTimeout: () => this.$store.commit('SET_TOAST', {show: false})
           }).show();
         } else {
           if (!this.toast) return;
@@ -109,13 +104,13 @@
       $route(to, from) {
         to.meta.index > from.meta.index ? this.transitionName = 'slide-left' : this.transitionName = 'slide-right';
 
-        /*关闭diaLog*/
+        // 关闭diaLog
         this.diaLog && this.$store.commit('SET_ERR_DIALOG', {show: false});
 
-        /*关闭吐司提示*/
+        // 关闭吐司提示
         this.toast && this.$store.commit('SET_TOAST', {show: false});
 
-        /*取消请求*/
+        // 取消请求
         window.cancelRequire && window.cancelRequire();
       }
     },
@@ -132,7 +127,7 @@
       return {reload:this.reload}
     },
     mounted(){
-      /**  初始化hybrid-bridge **/
+      // 初始化hybrid-bridge
       let deviceType = getQueryString('appType', window.location);
       initHybridBridge.init(deviceType);
     }

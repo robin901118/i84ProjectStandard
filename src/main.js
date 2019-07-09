@@ -20,8 +20,8 @@ import Navigation from 'vue-navigation';
  * */
 import './cube-ui'
 import  lbImageEditor from 'lb-image-editor'
-Vue.use(VueLazyImageLoading);//图片懒加载
-Vue.use(lbImageEditor);//图片编辑器
+Vue.use(VueLazyImageLoading);//图片懒加载(不需要可以移除)
+Vue.use(lbImageEditor);//图片编辑器(不需要可以移除)
 Vue.use(Navigation,{router,store});
 
 /**

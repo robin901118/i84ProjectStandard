@@ -41,7 +41,7 @@ module.exports = {
       'vue-router': 'VueRouter'
     };
 
-    /*配置图片路径，在css中如果要引入背景图可以用~img即可*/
+    /*配置图片路径，在scss中如果要引入背景图可以用~img即可*/
     obj.resolve = {
       alias: {
         'img': '@/assets/img',
@@ -67,8 +67,6 @@ module.exports = {
     return obj
   },
   devServer: {
-    // setting host should not be necessary
-    // host: '0.0.0.0:8080'
     public: '192.168.1.123:8080',
     disableHostCheck: true
   }

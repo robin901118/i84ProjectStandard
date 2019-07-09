@@ -3,6 +3,7 @@ import QS from 'qs';
 import store from '../../store';
 import {Dialog} from 'cube-ui';
 import router from '../../router';
+
 const CancelToken = axios.CancelToken;
 
 /**
@@ -104,7 +105,7 @@ class Http {
 
         })
 
-        /*错误处理*/
+        //错误处理
         .catch(error => {
           loading && store.commit("SET_LOADING", false);
           this.publicError(error);
@@ -130,19 +131,18 @@ class Http {
     return new Promise((resolve, reject) => {
       Promise.all(requests)
         .then(res => {
-          let resultArr = [], flag = true;
+          let resultArr = [], flag = false;
 
           /** 循环遍历请求状态 **/
           for (let i = 0, len = res.length; i < len; i++) {
             if (res[i]['data']['_code'] === '99999') {
               resultArr.push(res[i]['data']['_result'] || "success");//成功
+              flag = true;
             } else if (res[i]['data']['_code'] === '20001') {
               this.logout(res[i]['data']['_msg']);//未登录
-              flag = false;
               break;
             } else {
               store.commit('SET_ERR_DIALOG', {show: true, txt: res[i]['data']['_msg']});//其他错误
-              flag = false;
               break;
             }
           }
