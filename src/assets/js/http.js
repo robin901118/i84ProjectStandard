@@ -62,22 +62,31 @@ class Http {
 
   /**
    * +++++++++++++++++++++++++++++++++++
-   * @param url 请求链接
-   * @param data 请求参数
-   * @param loading 是否需要loading
-   * @param method 请求方式 default 'get'
+   * @param params 请求参数{
+   * url：请求链接，
+   * data:请求数据
+   * loading:是否需要loading
+   * method:请求类型
+   * }
    * +++++++++++++++++++++++++++++++++++
    * */
-  ajax({url = '/api', data, loading, method = 'get'}) {
+  ajax(params) {
+    params = Object.assign({
+      url:"/api",
+      data:undefined,
+      loading:undefined,
+      method:"get"
+    },params);
+
     return new Promise((resolve, reject) => {
       //打开loading
-      loading && store.commit("SET_LOADING", true);
+      params['params'] && store.commit("SET_LOADING", true);
 
       //开始请求
       this.$http({
-        url: url,
-        method: method,
-        data: data,
+        url: params['url'],
+        method: params['method'],
+        data: params['data'],
         //取消请求，如果有页面需要用到取消当前请求，则直接调用window.cancelRequire方法
         cancelToken: new CancelToken(c => window.cancelRequire = c)
       })
@@ -85,7 +94,7 @@ class Http {
       //正确返回
         .then(res => {
           //关闭loading
-          loading && store.commit("SET_LOADING", false);
+          params['params'] && store.commit("SET_LOADING", false);
 
           //状态判断
           switch (res['data']["_code"]) {
@@ -107,7 +116,7 @@ class Http {
 
         //错误处理
         .catch(error => {
-          loading && store.commit("SET_LOADING", false);
+          params['params'] && store.commit("SET_LOADING", false);
           this.publicError(error);
           reject(false);
         })
@@ -116,16 +125,23 @@ class Http {
 
   /**
    * +++++++++++++++++++++++++++++++++++
-   * @param requestArr 并发请求数组
-   * @param loading 是否需要loading default false
+   * @param params 请求参数{
+   * requestArr:并发请求数组
+   * loading:是否需要loading
+   * }
    * +++++++++++++++++++++++++++++++++++
    * */
-  all({requestArr, loading}) {
+  all(params) {
+    params = Object.assign({
+      requestArr:[],
+      loading:undefined
+    },params);
+
     //打开loading
-    loading && store.commit("SET_LOADING", true);
+    params['loading'] && store.commit("SET_LOADING", true);
 
     //处理数据
-    let requests = requestArr.map(item => this.$http(item));
+    let requests = params['requestArr'].map(item => this.$http(item));
 
     //返回数据
     return new Promise((resolve, reject) => {
@@ -146,11 +162,11 @@ class Http {
               break;
             }
           }
-          loading && store.commit("SET_LOADING", false);//关闭loading
+          params['loading'] && store.commit("SET_LOADING", false);//关闭loading
           flag ? resolve(resultArr) : reject(false);//返回结果
         })
         .catch(error => {
-          loading && store.commit("SET_LOADING", false);
+          params['loading'] && store.commit("SET_LOADING", false);
           this.publicError(error);
           reject(false);
         });

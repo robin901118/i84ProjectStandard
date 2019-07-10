@@ -18,8 +18,22 @@
         this.reload();//直接调用刷新页面
       }
     },
-    mounted(){
+    async mounted(){
       console.log('测试刷新');
+
+      //单个请求
+      try {
+        const result = await this.$http.ajax({
+          url:'/goodsData',
+          method:"post",
+        });
+
+        console.log(result);
+      }catch (e) {
+        console.error(e);
+        return false;
+      }
+
     }
   }
 </script>
