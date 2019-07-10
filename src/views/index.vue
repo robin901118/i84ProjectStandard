@@ -48,6 +48,7 @@
 
 <script>
   import myHeader from '../components/header/header';
+  const DIALOG_CLOSE_TIME = 1000;//dialog弹窗关闭时间
 
   export default {
     name: 'home',
@@ -109,7 +110,7 @@
           onConfirm: (e, promptValue) => {
             this.$createToast({
               type: 'warn',
-              time: 1000,
+              time: DIALOG_CLOSE_TIME,
               txt: `Prompt value: ${promptValue || ''}`
             }).show()
           }
@@ -127,6 +128,7 @@
       }
     },
     async created() {
+
       /*HTTP请求实例*/
       try{
         //并发请求实例

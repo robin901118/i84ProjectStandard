@@ -15,6 +15,8 @@
   import {mapState} from "vuex";
   import initHybridBridge from './assets/js/hybrid-bridge';
   import {getQueryString} from './assets/js/common';
+  const TOAST_CLOSE_TIME = 3000;//吐司提示关闭时间
+  const LOADING_CLOSE_TIME = 0;//loading关闭时间
 
   export default {
     data() {
@@ -47,7 +49,7 @@
         if (nv) {
           this.loading = this.$createToast({
             mask: true,//蒙层
-            time: 0//设置为0时需要手动关闭
+            time: LOADING_CLOSE_TIME//设置为0时需要手动关闭
           }).show();
         } else {
           if (!this.loading) return;
@@ -84,7 +86,7 @@
       toastShow(nv) {
         if (nv) {
           this.toast = this.$createToast({
-            time: 3000,
+            time: TOAST_CLOSE_TIME,
             type: this.toastType,
             txt: this.toastTxt,
             onTimeout: () => this.$store.commit('SET_TOAST', {show: false})
