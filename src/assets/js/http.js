@@ -80,7 +80,7 @@ class Http {
 
     return new Promise((resolve, reject) => {
       //打开loading
-      params['params'] && store.commit("SET_LOADING", true);
+      params['loading'] && store.commit("SET_LOADING", true);
 
       //开始请求
       this.$http({
@@ -94,7 +94,7 @@ class Http {
       //正确返回
         .then(res => {
           //关闭loading
-          params['params'] && store.commit("SET_LOADING", false);
+          params['loading'] && store.commit("SET_LOADING", false);
 
           //状态判断
           switch (res['data']["_code"]) {
@@ -116,7 +116,7 @@ class Http {
 
         //错误处理
         .catch(error => {
-          params['params'] && store.commit("SET_LOADING", false);
+          params['loading'] && store.commit("SET_LOADING", false);
           this.publicError(error);
           reject(false);
         })
