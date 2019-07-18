@@ -11,6 +11,12 @@ body{
   min-height: 100%;
   background: white;
 }
+input{
+  -webkit-appearance: none;
+}
+input,button{
+  border: none;
+}
 
 /* 路由样式 */
 .Router {

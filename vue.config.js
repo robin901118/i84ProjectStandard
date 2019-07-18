@@ -67,7 +67,8 @@ module.exports = {
     return obj
   },
   devServer: {
-    public: '192.168.1.123:8080',
-    disableHostCheck: true
+    // public: '192.168.1.123:8080',
+    // disableHostCheck: true
+    port:9090
   }
 };
