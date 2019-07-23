@@ -1,28 +1,5 @@
 .home{
   min-height: 100%;
-  background: #efefef;
-}
-.list{
-  margin-top: 20px;
-  background: white;
-  padding-left:30px;
-  font-size: 32px;
-  input{display: none;}
-  li{
-    min-height: 96px;
-    padding: 24px 30px 24px 0;
-  }
-}
-.headImg{
-  height: 140px;
-  width: 140px;
-  border-radius: 50%;
-  background-color: gray;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-.value{
-  font-size: 28px;
-  color: gray;
+  article{height: calc(100% - 90px)}
+  .logo{width: 50vw;}
 }

@@ -1,8 +1,6 @@
 <template>
-    <div class="header" flex="cross:center main:justify">
-        <i class="cubeic-back"></i>
-        个人中心
-        <span>保存</span>
+    <div class="header" flex="cross:center main:center">
+        {{this.$route.meta.title}}
     </div>
 </template>
 
@@ -15,7 +13,7 @@
 <style lang="scss" scoped>
     .header{
         height: 90px;
-        background: #1c90db;
+        background: #3a3434;
         color: white;
         padding: 0 32px;
         font-size: 40px;

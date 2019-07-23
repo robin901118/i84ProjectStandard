@@ -7,10 +7,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/'
-import dayjs from 'dayjs'
 import Http from './assets/js/http';
-import goodStorage from 'good-storage'
-import VueLazyImageLoading from 'vue-lazy-image-loading'
 import Navigation from 'vue-navigation';
 
 /**
@@ -19,27 +16,16 @@ import Navigation from 'vue-navigation';
  * +++++++++++++++++++++++++++++++++++
  * */
 import './cube-ui'
-import  lbImageEditor from 'lb-image-editor'
-Vue.use(VueLazyImageLoading);//图片懒加载(不需要可以移除)
-Vue.use(lbImageEditor);//图片编辑器(不需要可以移除)
 Vue.use(Navigation,{router,store});
 
-/**
- * +++++++++++++++++++++++++++++++++++
- * vconsole调试
- * +++++++++++++++++++++++++++++++++++
- * */
-// import vconsole from 'vconsole';
-// new vconsole();
 
 /**
  * +++++++++++++++++++++++++++++++++++
  * 全局变量
  * +++++++++++++++++++++++++++++++++++
  * */
-Vue.prototype.$day = dayjs;//格式化时间
+
 Vue.prototype.$http = Http;//封装好的请求
-Vue.prototype.$storage = goodStorage;//封装好的storage
 Vue.config.productionTip = false;
 
 

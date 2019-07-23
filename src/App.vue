@@ -13,8 +13,6 @@
 
 <script>
   import {mapState} from "vuex";
-  import initHybridBridge from './assets/js/hybrid-bridge';
-  import {getQueryString} from './assets/js/common';
   const TOAST_CLOSE_TIME = 3000;//吐司提示关闭时间
   const LOADING_CLOSE_TIME = 0;//loading关闭时间
 
@@ -129,11 +127,6 @@
     },
     provide(){
       return {reload:this.reload}
-    },
-    mounted(){
-      // 初始化hybrid-bridge
-      let deviceType = getQueryString('appType', window.location);
-      initHybridBridge.init(deviceType);
     }
   }
 </script>
