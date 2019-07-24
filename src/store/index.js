@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import mutations from './mutations'
+import createVuexAlong from 'vuex-along'
 Vue.use(Vuex);
 
 
@@ -20,10 +21,15 @@ const state = {
   toastType: '',//吐司类型
 };
 
-
 export default new Vuex.Store({
   state,
-  mutations
+  mutations,
+  plugins:[
+    createVuexAlong({
+      session:{list:() => Object.keys(state)},
+      justSession:true
+    })
+  ]
 })
 
 
