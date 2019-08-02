@@ -3,50 +3,51 @@
  * @param base64Data String
  * */
 const dataURItoBlob = base64Data => {
-  let byteString, mimeString, ia, byteLen;
+  let byteString = ''
+  let mimeString = ''
 
   if (base64Data.split(',')[0].indexOf('base64') >= 0) {
-    byteString = atob(base64Data.split(',')[1]);
+    byteString = window.atob(base64Data.split(',')[1])
   } else {
-    // byteString = unescape(base64Data.split(',')[1]);
-    byteString = decodeURI(base64Data.split(',')[1]);
+    byteString = decodeURI(base64Data.split(',')[1])
   }
 
-  byteLen = byteString.length;
-  mimeString = base64Data.split(',')[0].split(':')[1].split(';')[0];
-  ia = new Uint8Array(byteLen);
+  const byteLen = byteString.length
+  mimeString = base64Data.split(',')[0].split(':')[1].split(';')[0]
+  const ia = new Uint8Array(byteLen)
   for (let i = 0; i < byteLen; i++) {
-    ia[i] = byteString.charCodeAt(i);
+    ia[i] = byteString.charCodeAt(i)
   }
-  return new Blob([ia], {type: mimeString});
-};
+  return new window.Blob([ia], { type: mimeString })
+}
 
 /**
  * 判断微信或者支付宝
  * **/
 const isWeixinOrAlipay = () => {
-  let ua = window.navigator.userAgent.toLowerCase();
+  const ua = window.navigator.userAgent.toLowerCase()
   if (ua.indexOf('micromessenger') !== -1) {
-    return "weixin";
+    return 'weixin'
   } else if (ua.indexOf('alipay') !== -1) {
-    return "alipay";
+    return 'alipay'
   } else {
-    return 'other';
+    return 'other'
   }
-};
+}
 
 /**
  * 判断安卓或者ios
  * **/
 const getPhoneSystem = () => {
-  if (window.navigator.userAgent.indexOf('Android') > -1 || window.navigator.userAgent.indexOf('Linux') > -1) {
-    return "Android"
+  const ua = window.navigator.userAgent
+  if (ua.indexOf('Android') > -1 || ua.indexOf('Linux') > -1) {
+    return 'Android'
   } else if (ua.indexOf('iPhone') > -1) {
-    return "iPhone"
+    return 'iPhone'
   } else {
-    return "other";
+    return 'other'
   }
-};
+}
 
 /**
  * 解析URL中的参数
@@ -54,12 +55,11 @@ const getPhoneSystem = () => {
  * @param currentUrl 当前url
  * @returns {*}
  */
-const getQueryString = (parameterName, currentUrl,)=>{
-  let rs = new RegExp("(^|[&,?])" + parameterName + "=([^\&]*)(\&|$)", "gi").exec(currentUrl), tmp;
-  if (tmp = rs) return tmp[2];
-  return null;
-};
-
+const getQueryString = (parameterName, currentUrl) => {
+  const rs = new RegExp('(^|[&,?])' + parameterName + '=([^&]*)(&|$)', 'gi').exec(currentUrl)
+  if (rs) return rs[2]
+  return null
+}
 
 export {
   dataURItoBlob,
@@ -67,13 +67,3 @@ export {
   getPhoneSystem,
   getQueryString
 }
-
-
-
-
-
-
-
-
-
-

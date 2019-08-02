@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-Vue.use(VueRouter);
-
+Vue.use(VueRouter)
 
 /**
  * +++++++++++++++++++++++++++++++++++
  * 路由加载（懒加载）
  * +++++++++++++++++++++++++++++++++++
  * */
-const Home = resolve => require(['@/views/index.vue'], resolve);
-const notFind = resolve => require(['@/views/404.vue'], resolve);
-
+const Home = resolve => require(['@/views/index.vue'], resolve)
+const notFind = resolve => require(['@/views/404.vue'], resolve)
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -23,18 +21,18 @@ const notFind = resolve => require(['@/views/404.vue'], resolve);
 const router = new VueRouter({
   routes: [
     {
-      path: "*",
-      name: "notFind",
+      path: '*',
+      name: 'notFind',
       component: notFind,
-      meta: {requireAuth: false, title: '404', index: 9999}
+      meta: { requireAuth: false, title: '404', index: 9999 }
     },
     {
       path: '/',
       name: 'home',
       component: Home,
-      meta: {requireAuth: false, title: 'hello 爱巴士', index: 1}
+      meta: { requireAuth: false, title: 'hello 爱巴士', index: 1 }
     }
   ]
-});
+})
 
-export default router;
+export default router

@@ -13,7 +13,7 @@
 <br>
 
 <p align="center">
-<a href="https://github.com/robin901118/i84ProjectStandard"><img src="https://img.shields.io/badge/Github-i84--ui%201.1.1-green.png"></a> <a href="https://www.npmjs.com/package/i84-cli"><img src="https://img.shields.io/badge/npm-i84--cli%201.0.1-red.svg"></a>
+<a href="https://github.com/robin901118/i84ProjectStandard"><img src="https://img.shields.io/badge/Github-i84--ui%201.1.1-green.png"></a> <a href="https://www.npmjs.com/package/i84-cli"><img src="https://img.shields.io/badge/npm-i84--cli%201.0.1-red.svg"></a><a href="https://github.com/standard/standard/blob/master/docs/README-zhcn.md#is-there-a-readme-badge"><img src="https://cdn.rawgit.com/standard/standard/master/badge.svg"></a>
 </p>
 
 <br>
@@ -30,6 +30,7 @@
 - [x] :heart_eyes: 更优的scss-mixin
 - [x] :yum: APP原生方法兼容更好
 - [x] :relaxed: day.js集成
+- [x] :joy: standard代码风格检查，帮你规范代码风格
 
 ## License
 

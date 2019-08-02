@@ -7,8 +7,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/'
-import Http from './assets/js/http';
-import Navigation from 'vue-navigation';
+import Http from './assets/js/http'
+import Navigation from 'vue-navigation'
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -16,8 +16,7 @@ import Navigation from 'vue-navigation';
  * +++++++++++++++++++++++++++++++++++
  * */
 import './cube-ui'
-Vue.use(Navigation,{router,store});
-
+Vue.use(Navigation, { router, store })
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -25,9 +24,8 @@ Vue.use(Navigation,{router,store});
  * +++++++++++++++++++++++++++++++++++
  * */
 
-Vue.prototype.$http = Http;//封装好的请求
-Vue.config.productionTip = false;
-
+Vue.prototype.$http = Http// 封装好的请求
+Vue.config.productionTip = false
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -35,11 +33,10 @@ Vue.config.productionTip = false;
  * +++++++++++++++++++++++++++++++++++
  * */
 router.beforeEach((to, from, next) => {
-  //更改title
-  document.title = to.meta.title;
-  next();
-});
-
+  // 更改title
+  document.title = to.meta.title
+  next()
+})
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -50,4 +47,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app');
+}).$mount('#app')
