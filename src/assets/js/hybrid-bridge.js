@@ -11,7 +11,7 @@
 
 const initHybridBridge = {
   init: function (deviceType) {
-    if (!deviceType) return;
+    if (!deviceType || deviceType === "other") return;
     (function () {
       if (window.WebViewJavascriptBridge || deviceType === 'ios') {
         return false

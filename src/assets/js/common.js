@@ -41,9 +41,9 @@ const isWeixinOrAlipay = () => {
 const getPhoneSystem = () => {
   const ua = window.navigator.userAgent
   if (ua.indexOf('Android') > -1 || ua.indexOf('Linux') > -1) {
-    return 'Android'
+    return 'android'
   } else if (ua.indexOf('iPhone') > -1) {
-    return 'iPhone'
+    return 'ios'
   } else {
     return 'other'
   }
