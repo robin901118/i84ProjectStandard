@@ -25,6 +25,9 @@ module.exports = {
       }
     }
   },
+  transpileDependencies: [
+    "vuex-along"
+  ],
   pluginOptions: {
     'cube-ui': {
       postCompile: true,
