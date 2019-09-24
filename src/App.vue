@@ -28,14 +28,14 @@
     },
     computed: {
       ...mapState([
-        'loadingShow',
-        'errorDialogShow',
-        'errorDialogTxt',
-        'errorDialogIcon',
-        'toastTxt',
-        'toastShow',
-        'toastType'
-      ])
+        'publicLoadingShow',
+        'publicArrDialogShow',
+        'publicErrDialogTxt',
+        'publicErrDialogIcon',
+        'publicToastTxt',
+        'publicToastShow',
+        'publicToastType'
+      ]),
     },
     watch: {
       /**
@@ -43,7 +43,7 @@
        * 加载loading
        * +++++++++++++++++++++++++++++++++++
        * */
-      loadingShow(nv) {
+      publicLoadingShow(nv) {
         if (nv) {
           this.loading = this.$createToast({
             mask: true,//蒙层
@@ -61,12 +61,12 @@
        * 错误弹窗提示
        * +++++++++++++++++++++++++++++++++++
        * */
-      errorDialogShow(nv) {
+      publicArrDialogShow(nv) {
         if (nv) {
           this.diaLog = this.$createDialog({
             mask: true,
-            icon: this.errorDialogIcon,
-            content: this.errorDialogTxt,
+            icon: this.publicErrDialogIcon,
+            content: this.publicErrDialogTxt,
             onConfirm: () => this.$store.commit('SET_ERR_DIALOG', {show: false})
           }).show();
         } else {
@@ -81,12 +81,12 @@
        * toast提示
        * +++++++++++++++++++++++++++++++++++
        * */
-      toastShow(nv) {
+      publicToastShow(nv) {
         if (nv) {
           this.toast = this.$createToast({
             time: TOAST_CLOSE_TIME,
-            type: this.toastType,
-            txt: this.toastTxt,
+            type: this.publicToastType,
+            txt: this.publicToastTxt,
             onTimeout: () => this.$store.commit('SET_TOAST', {show: false})
           }).show();
         } else {
@@ -127,6 +127,9 @@
     },
     provide(){
       return {reload:this.reload}
+    },
+    created(){
+      this.$store.commit("RESET_STATE");
     }
   }
 </script>

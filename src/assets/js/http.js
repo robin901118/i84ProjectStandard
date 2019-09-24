@@ -1,10 +1,12 @@
 import axios from 'axios'
 import QS from 'qs'
-import store from '../../store'
+import store from '../../store/index'
 import { Dialog } from 'cube-ui'
 import router from '../../router'
+import {baseURL}  from '../../config/index'
 
 const CancelToken = axios.CancelToken
+
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -95,6 +97,7 @@ class Http {
         .then(res => {
           // 关闭loading
           params['loading'] && store.commit('SET_LOADING', false)
+
 
           // 状态判断
           switch (res['data']['_code']) {
@@ -189,4 +192,4 @@ class Http {
   }
 }
 
-export default new Http(store.state.baseURL)
+export default new Http(baseURL)

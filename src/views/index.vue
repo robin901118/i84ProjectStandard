@@ -20,6 +20,23 @@
       }
     },
     components: {myHeader},
+    async mounted(){
+      try{
+
+        const rst = await this.$http.ajax({
+          url:"/api",
+          method:"POST",
+          data:{
+            userId:6112
+          },
+          loading:true
+        });
+
+      }catch (e) {
+        console.error(e);
+        return false;
+      }
+    }
   }
 </script>
 

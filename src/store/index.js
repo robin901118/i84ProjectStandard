@@ -4,21 +4,24 @@ import mutations from './mutations'
 import createVuexAlong from 'vuex-along'
 Vue.use(Vuex)
 
-/**
- * +++++++++++++++++++++++++++++++++++
- * 全局store状态
- * +++++++++++++++++++++++++++++++++++
- * */
-const state = {
-  baseURL: 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall', // 接口前缀
-  loadingShow: false, // loadingShow
-  errorDialogShow: false, // 错误弹窗显示/隐藏
-  errorDialogTxt: '', // 错误弹窗信息
-  errorDialogIcon: '', // 错误弹窗图标
-  toastTxt: '', // 吐司提示文本
-  toastShow: false, // 吐司提示显示
-  toastType: ''// 吐司类型
+
+/***** 刷新页面的时候需要重置的状态 *****/
+export const loadedNeedRestState = {
+  publicLoadingShow: false, // loadingShow
+  publicArrDialogShow: false, // 错误弹窗显示/隐藏
+  publicErrDialogTxt: '', // 错误弹窗信息
+  publicErrDialogIcon: '', // 错误弹窗图标
+  publicToastTxt: '', // 吐司提示文本
+  publicToastShow: false, // 吐司提示显示
+  publicToastType: ''// 吐司类型
 }
+
+/***** 其他状态 *****/
+const otherState = {
+  hello:"word"
+}
+
+const state = Object.assign({},loadedNeedRestState,otherState);
 
 export default new Vuex.Store({
   state,
