@@ -6,7 +6,6 @@ import router from '../../router'
 import { BASE_URL }  from '../../config/index'
 const CancelToken = axios.CancelToken
 
-
 /**
  * +++++++++++++++++++++++++++++++++++
  * 封装的请求类
