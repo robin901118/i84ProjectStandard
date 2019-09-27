@@ -4,8 +4,7 @@ import mutations from './mutations'
 import createVuexAlong from 'vuex-along'
 Vue.use(Vuex)
 
-
-/***** 刷新页面的时候需要重置的状态 *****/
+/** *** 刷新页面的时候需要重置的状态 *****/
 export const loadedNeedRestState = {
   publicLoadingShow: false, // loadingShow
   publicArrDialogShow: false, // 错误弹窗显示/隐藏
@@ -16,12 +15,12 @@ export const loadedNeedRestState = {
   publicToastType: ''// 吐司类型
 }
 
-/***** 其他状态 *****/
+/** *** 其他状态 *****/
 const otherState = {
-  hello:"word"
+  hello: 'word'
 }
 
-const state = Object.assign({},loadedNeedRestState,otherState);
+const state = Object.assign({}, loadedNeedRestState, otherState)
 
 export default new Vuex.Store({
   state,

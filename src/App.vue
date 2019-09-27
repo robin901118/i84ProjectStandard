@@ -114,7 +114,7 @@
       }
     },
     methods: {
-      /**  刷新页面 ,这种刷新方式只是重新加载组件 **/
+      /**  刷新页面 ,这种刷新方式只是重载组件 **/
       reload () {
         this.isRouterReload = false
         this.$nextTick(() => {

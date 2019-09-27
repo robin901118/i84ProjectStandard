@@ -1,9 +1,9 @@
 /**
  * +++++++++++++++++++++++++++++++++++
  * 环境变量
- * test             --->   测试环境
- * ready          --->   预发布环境
- * production  --->   正式环境
+ * @value: test             --->   测试环境
+ * @value: ready          --->   预发布环境
+ * @value: production  --->   正式环境
  * +++++++++++++++++++++++++++++++++++
  * */
 const PACKING_CONDITION = 'test'
@@ -18,15 +18,15 @@ const PACKING_CONDITION = 'test'
  * */
 export const BASE_URL = (function () {
   const url = {
-    'test': 'http://bc.ngrok.i84.com.cn',
-    'ready': 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall',
-    'production': 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall'
+    test: 'http://bc.ngrok.i84.com.cn',
+    ready: 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall',
+    production: 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall'
   }
 
   if (PACKING_CONDITION) {
     return url[PACKING_CONDITION]
   } else {
-    return url['test']
+    return url.test
   }
 })()
 
