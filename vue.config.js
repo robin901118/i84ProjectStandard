@@ -37,11 +37,6 @@ module.exports = {
   configureWebpack: config => {
     const obj = {}
 
-    /* 以下控件通过CDN引入 */
-    obj.externals = {
-      vue: 'Vue',
-      'vue-router': 'VueRouter'
-    }
 
     /* 配置图片路径，在scss中如果要引入背景图可以用~img即可 */
     obj.resolve = {
