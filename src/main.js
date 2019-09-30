@@ -9,6 +9,7 @@ import router from './router'
 import store from './store/'
 import Http from './assets/js/http'
 import Navigation from 'vue-navigation'
+import { BASE_URL }  from '@/config/index'
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -24,7 +25,7 @@ Vue.use(Navigation, { router, store })
  * +++++++++++++++++++++++++++++++++++
  * */
 
-Vue.prototype.$http = Http// 封装好的请求
+Vue.prototype.$http = new Http(BASE_URL)// 封装好的请求
 Vue.config.productionTip = false
 
 /**
