@@ -14,6 +14,9 @@ module.exports = {
           './src/theme'
         ]
       },
+      sass:{
+        data:'@import "@/assets/css/_family.scss";@import "@/assets/css/_theme.scss";'
+      },
       /* css中的图片分离 */
       css: {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

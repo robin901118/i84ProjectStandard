@@ -22,8 +22,7 @@
     components: {myHeader},
     async mounted(){
       try{
-
-        const rst = await this.$http.ajax({
+        await this.$http.ajax({
           url:"/api",
           method:"POST",
           data:{

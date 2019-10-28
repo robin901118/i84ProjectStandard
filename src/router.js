@@ -4,14 +4,6 @@ Vue.use(VueRouter)
 
 /**
  * +++++++++++++++++++++++++++++++++++
- * 路由加载（懒加载）
- * +++++++++++++++++++++++++++++++++++
- * */
-const Home = resolve => require(['@/views/index.vue'], resolve)
-const notFind = resolve => require(['@/views/404.vue'], resolve)
-
-/**
- * +++++++++++++++++++++++++++++++++++
  * 路由配置
  * meta--requireAuth (该页面是否需要登录后才可进)
  * meta--title(页面标题)
@@ -23,13 +15,13 @@ const router = new VueRouter({
     {
       path: '*',
       name: 'notFind',
-      component: notFind,
+      component: () => import('@/views/404.vue'),
       meta: { requireAuth: false, title: '404', index: 9999 }
     },
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: () => import('@/views/index.vue'),
       meta: { requireAuth: false, title: 'hello 爱巴士', index: 1 }
     }
   ]
