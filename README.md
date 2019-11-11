@@ -13,7 +13,7 @@
 <br>
 
 <p align="center">
-<a href="https://github.com/robin901118/i84ProjectStandard"><img src="https://img.shields.io/badge/Github-i84--ui%201.1.1-green.png"></a> <a href="https://www.npmjs.com/package/i84-cli"><img src="https://img.shields.io/badge/npm-i84--cli%201.0.1-red.svg"></a> <a href="https://github.com/standard/standard/blob/master/docs/README-zhcn.md#is-there-a-readme-badge"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg"></a>
+<a href="https://github.com/robin901118/i84ProjectStandard"><img src="https://img.shields.io/badge/Github-i84--ui%201.2.2-green.png"></a> <a href="https://www.npmjs.com/package/i84-cli"><img src="https://img.shields.io/badge/npm-i84--cli%201.0.1-red.svg"></a> <a href="https://github.com/standard/standard/blob/master/docs/README-zhcn.md#is-there-a-readme-badge"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg"></a>
 </p>
 
 <br>
