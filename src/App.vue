@@ -99,9 +99,7 @@
        * +++++++++++++++++++++++++++++++++++
        * */
       $route (to, from) {
-        to.meta.index > from.meta.index
-          ? this.transitionName = 'slide-left'
-          : this.transitionName = 'slide-right'
+        this.transitionName = to.meta.index > from.meta.index ? 'slide-left' : 'slide-right'
 
         // 关闭diaLog
         this.diaLog && this.$store.commit('SET_ERR_DIALOG', {show: false})

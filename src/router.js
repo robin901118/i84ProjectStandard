@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NotFind from '@/views/404.vue'
+import Home from '@/views/index.vue'
 Vue.use(VueRouter)
 
 /**
@@ -15,13 +17,13 @@ const router = new VueRouter({
     {
       path: '*',
       name: 'notFind',
-      component: () => import('@/views/404.vue'),
+      component: NotFind,
       meta: { requireAuth: false, title: '404', index: 9999 }
     },
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/index.vue'),
+      component: Home,
       meta: { requireAuth: false, title: 'hello 爱巴士', index: 1 }
     }
   ]
