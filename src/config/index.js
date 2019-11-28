@@ -14,13 +14,15 @@ const PACKING_CONDITION = 'test'
  * test             --->   测试环境
  * ready          --->   预发布环境
  * production  --->   正式环境
+ * mock          --->   模拟数据
  * +++++++++++++++++++++++++++++++++++
  * */
 export const BASE_URL = (function () {
   const url = {
     test: 'http://bc.ngrok.i84.com.cn',
     ready: 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall',
-    production: 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall'
+    production: 'https://www.easy-mock.com/mock/5b502bb4645157291985a472/buslifemall',
+    mock:"/"
   }
 
   if (PACKING_CONDITION) {

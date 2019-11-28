@@ -6,6 +6,16 @@ Vue.use(VueRouter)
 
 /**
  * +++++++++++++++++++++++++++++++++++
+ * 重写路由的push方法
+ * +++++++++++++++++++++++++++++++++++
+ */
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location) {
+  return routerPush.call(this, location).catch(error => error)
+}
+
+/**
+ * +++++++++++++++++++++++++++++++++++
  * 路由配置
  * meta--requireAuth (该页面是否需要登录后才可进)
  * meta--title(页面标题)
@@ -27,6 +37,17 @@ const router = new VueRouter({
       meta: { requireAuth: false, title: 'hello 爱巴士', index: 1 }
     }
   ]
+})
+
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 路由拦截
+ * +++++++++++++++++++++++++++++++++++
+ * */
+router.beforeEach((to, from, next) => {
+  // 更改title
+  document.title = to.meta.title
+  next()
 })
 
 export default router
