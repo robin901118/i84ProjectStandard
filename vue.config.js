@@ -15,7 +15,7 @@ module.exports = {
         ]
       },
       sass:{
-        data:'@import "@/assets/css/_family.scss";@import "@/assets/css/_theme.scss";'
+        prependData:'@import "@/assets/css/_family.scss";@import "@/assets/css/_theme.scss";'
       },
       /* css中的图片分离 */
       css: {

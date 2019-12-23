@@ -15,6 +15,9 @@
   import { mapState } from 'vuex'
   import { TOAST_CLOSE_TIME, LOADING_CLOSE_TIME } from './config/index'
 
+
+
+
   export default {
     data () {
       return {
@@ -124,7 +127,7 @@
       return {reload: this.reload}
     },
     created () {
-      this.$store.commit('RESET_STATE')
+      this.$store.commit('RESET_STATE');
     }
   }
 </script>
