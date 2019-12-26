@@ -16,15 +16,6 @@ module.exports = {
       },
       sass:{
         prependData:'@import "@/assets/css/_family.scss";@import "@/assets/css/_theme.scss";'
-      },
-      /* css中的图片分离 */
-      css: {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 4192,
-          name: path.posix.join(baseUrl)
-        }
       }
     }
   },
