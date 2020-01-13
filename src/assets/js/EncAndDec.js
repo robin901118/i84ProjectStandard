@@ -1,12 +1,16 @@
 /**
+ * +++++++++++++++++++++++++++++++++++
  * encrypt()  =>  加密
  * decrypt()  =>  解密
+ * +++++++++++++++++++++++++++++++++++
  **/
+import {ENC_OFFSET} from '../../config';
+
 class EncAndDec {
-  constructor () {
+  constructor ({key,iv}) {
     this.CryptoJS = require('crypto-js') // 引用AES源码js
-    this.key = this.CryptoJS.enc.Utf8.parse('1234123412ABCDEF') // 十六位十六进制数作为密钥
-    this.iv = this.CryptoJS.enc.Utf8.parse('ABCDEF1234123412') // 十六位十六进制数作为密钥偏移量
+    this.key = this.CryptoJS.enc.Utf8.parse(key) // 十六位十六进制数作为密钥
+    this.iv = this.CryptoJS.enc.Utf8.parse(iv) // 十六位十六进制数作为密钥偏移量
   }
 
   /**
@@ -43,4 +47,4 @@ class EncAndDec {
     return decryptedStr.toString()
   };
 }
-export default new EncAndDec()
+export default new EncAndDec(ENC_OFFSET)
