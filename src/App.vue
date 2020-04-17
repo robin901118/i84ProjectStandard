@@ -2,11 +2,11 @@
     <div id="app">
         <transition :name="transitionName">
             <keep-alive>
-                <router-view v-if="keepAliveIsReload" class="Router"></router-view>
+                <router-view v-if="keepAliveIsReload" class="Router" id="content"></router-view>
             </keep-alive>
         </transition>
         <transition :name="transitionName">
-            <router-view v-if="!keepAliveIsReload" class="Router"></router-view>
+            <router-view v-if="!keepAliveIsReload" class="Router" id="content"></router-view>
         </transition>
     </div>
 </template>

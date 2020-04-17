@@ -45,6 +45,12 @@ const router = new VueRouter({
  * +++++++++++++++++++++++++++++++++++
  * */
 router.beforeEach((to, from, next) => {
+  if (from.meta.keepAlive) {                                                      //+++++++++++Keep-alive页面+++++++++++
+    const $content = document.querySelector('#content');                 //保存当前页面的滚动条位置，提供给keep-alive
+    const scrollTop = $content ? $content.scrollTop : 0;                          //使用
+    from.meta.scrollTop = scrollTop;
+  }
+
   // 更改title
   document.title = to.meta.title
   next()
