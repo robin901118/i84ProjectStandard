@@ -15,9 +15,6 @@
   import { mapState } from 'vuex'
   import { TOAST_CLOSE_TIME, LOADING_CLOSE_TIME } from './config/index'
 
-
-
-
   export default {
     data () {
       return {

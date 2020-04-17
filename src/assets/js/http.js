@@ -13,9 +13,9 @@ const CancelToken = axios.CancelToken
  * +++++++++++++++++++++++++++++++++++
  * */
 export default class Http {
-  constructor (publicPath) {
+  constructor () {
     this.$http = axios.create()
-    this.$http.defaults.baseURL = publicPath
+    this.$http.defaults.baseURL = process.env.VUE_APP_BASEAPI
     this.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
     // 请求拦截
     this.$http.interceptors.request.use(
@@ -104,12 +104,12 @@ export default class Http {
 
             case '20001':
               this.logout(res['data']['_msg'])// session失效
-              reject(false)
+              reject('20001')
               break
 
             default:
               store.commit('SET_ERR_DIALOG', { show: true, txt: res['data']['_msg'] })// 其他错误
-              reject(false)
+              reject(['data']['_code'])
           }
         })
 

@@ -26,6 +26,7 @@
           url:"/api",
           method:"POST",
           data:{
+            action:"test_mock_api",
             userId:6112
           },
           loading:true

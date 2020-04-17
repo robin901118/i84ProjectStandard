@@ -6,9 +6,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store/'
+import store from './store'
 import Http from './assets/js/http'
-import { BASE_URL }  from '@/config/index'
+import goodStorage from 'good-storage'
 
 /**
  * +++++++++++++++++++++++++++++++++++
@@ -23,8 +23,27 @@ import './cube-ui'
  * +++++++++++++++++++++++++++++++++++
  * */
 
-Vue.prototype.$http = new Http(BASE_URL)// 封装好的请求
+Vue.prototype.$http = new Http()// 封装好的请求
+Vue.prototype.$storage = goodStorage
 Vue.config.productionTip = false
+
+/**
+ * +++++++++++++++++++++++++++++++++++
+ * 环境配置
+ * +++++++++++++++++++++++++++++++++++
+ * */
+switch (process.env.VUE_APP_CURRENTMODE) {
+  //测试环境
+  case "test":
+    const VConsole = require('vconsole');
+    new VConsole();//测试服开启debug
+    break;
+
+  //本地开发环境
+  case "mock":
+    require('./mock');//引入mock数据
+    break;
+}
 
 /**
  * +++++++++++++++++++++++++++++++++++

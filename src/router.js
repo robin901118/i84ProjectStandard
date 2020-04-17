@@ -28,13 +28,13 @@ const router = new VueRouter({
       path: '*',
       name: 'notFind',
       component: NotFind,
-      meta: { requireAuth: false, title: '404', index: 9999 }
+      meta: { requireAuth: false, title: '404', index: 9999, keepAlive: false, scrollTop: 0}
     },
     {
       path: '/',
       name: 'home',
       component: Home,
-      meta: { requireAuth: false, title: 'hello 爱巴士', index: 1 }
+      meta: { requireAuth: false, title: 'hello 爱巴士', index: 1, keepAlive: false, scrollTop: 0}
     }
   ]
 })
