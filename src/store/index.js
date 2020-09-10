@@ -17,7 +17,7 @@ export const loadedNeedRestState = {
 
 /** *** 其他状态 *****/
 const otherState = {
-  hello: 'word'
+  hello: 'world'
 }
 
 const state = Object.assign({}, loadedNeedRestState, otherState)
